@@ -29,6 +29,11 @@ class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
         path = urlparse(self.path).path
         if path == '/api/health': return self.respond(200, dict(ok=True))
+        if path == '/api/default-contract':
+            with open(BASE/'default-contract.json','r',encoding='utf-8') as source:
+                params=json.load(source)
+            result=calculate(params)
+            return self.respond(200,dict(id=result['params']['recordId'],params=result['params'],result=result))
         if path.startswith('/api/'): return self.respond(404, dict(error='接口不存在。'))
         super().do_GET()
 

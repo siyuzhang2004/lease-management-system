@@ -26,7 +26,9 @@ python -m venv .venv
 
 浏览器打开 <http://127.0.0.1:8765/>。服务仅监听本机地址。
 
-合同记录保存在当前浏览器的 localStorage 中，不随 Git 推送，也不会在不同浏览器或设备之间同步。首次运行时通过“新增合同”填写参数。
+首次使用的浏览器会自动载入西安合同及其计算表，可直接查看参数和余额。默认参数保存在 `prototype/default-contract.json`，随代码分发。
+
+之后的合同记录保存在当前浏览器的 localStorage 中，不随 Git 推送，也不会在不同浏览器或设备之间同步。默认数据仅在首次使用时初始化，不覆盖已有合同，删除合同后不会自动恢复。
 
 ## 项目结构
 
@@ -46,6 +48,7 @@ python -m venv .venv
 ```powershell
 node prototype/check-contract-links.cjs
 node prototype/check-financial-rules.cjs
+node prototype/check-default-contract.cjs
 ```
 
 完整计算回归检查：

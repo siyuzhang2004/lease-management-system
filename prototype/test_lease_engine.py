@@ -1,12 +1,24 @@
 """Regression against the supplied Excel, including exported formula caches."""
 import io
+import json
 import unittest
 import openpyxl
-from lease_engine import baseline, calculate, audit_baseline, export_excel, COLS, SOURCE
+from lease_engine import baseline, calculate, audit_baseline, export_excel, COLS, SOURCE, ROOT
 from lease_linking import reverse_excel
 
 
 class LeaseRegression(unittest.TestCase):
+    def test_default_contract_has_complete_calculation(self):
+        with open(ROOT/'prototype'/'default-contract.json','r',encoding='utf-8') as source:params=json.load(source)
+        result=calculate(params)
+        self.assertEqual(params['recordId'],'LS-2026-FDADCDA8')
+        self.assertEqual(len(params['rentPhases']),10)
+        self.assertEqual(len(result['rows']),120)
+        self.assertEqual(result['initial']['asset'],19007871.44)
+        self.assertEqual(result['initial']['liability'],17422330.16)
+        self.assertEqual(result['rows'][-1]['closingLiability'],0)
+        self.assertEqual(result['rows'][-1]['closingAsset'],0)
+
     def test_original_1804_values(self):
         result=calculate(baseline())
         audit=audit_baseline(result)

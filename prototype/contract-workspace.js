@@ -97,7 +97,7 @@ async function initContractWorkspace(){
  document.querySelectorAll('[data-top]').forEach(b=>b.onclick=showContractList);
  $('#primary').onclick=()=>openContractEntry();
  try{leaseRecords=JSON.parse(localStorage.getItem(contractStorageKey)||'{}');}catch{leaseRecords={};}
-
- const match=location.hash.match(/^#contract\/([^/]+)\/(overview|parameters|calculation)$/);if(match)await showContractPage(decodeURIComponent(match[1]),match[2]);else showContractList();
+ const seededId=await seedDefaultLease(localStorage,leaseRecords,async()=>await(await calcApi('/api/default-contract')).json());
+ const match=location.hash.match(/^#contract\/([^/]+)\/(overview|parameters|calculation)$/);if(match)await showContractPage(decodeURIComponent(match[1]),match[2]);else if(seededId)await showContractPage(seededId,'calculation');else showContractList();
 }
 initContractWorkspace().catch(e=>{toast('合同工作台加载失败：'+e.message);});
