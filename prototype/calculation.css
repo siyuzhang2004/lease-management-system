@@ -130,3 +130,8 @@
 #calculationView[data-rent-layout="schedule"] .calc-stage-table>thead th:nth-child(5){width:12%;text-align:left}
 #calculationView[data-rent-layout="schedule"] .calc-stage-table input{max-width:220px}
 @media(max-width:800px){.parameter-lock-bar{top:62px;align-items:flex-start}.parameter-lock-bar span{display:block;margin-top:6px}#calculationView #contractAdvancedBody .lf-grid,#calculationView #contractAdvancedBody .lf-initial-section>.lf-grid{grid-template-columns:minmax(0,300px)}#calculationView #contractAdvancedBody .lf-repeat{grid-template-columns:18px minmax(0,1fr) minmax(0,1fr) 40px}#calculationView #contractAdvancedBody .lf-field:not(.lf-full){max-width:100%}}
+
+/* Consistent numeric presentation in parameter forms and result tables. */
+#calculationView input.numeric-centered,#calculationView .calc-stage-table input.numeric-centered,#calculationView .phase-amount input.numeric-centered,#leaseEditor input.numeric-centered{text-align:center!important;font-variant-numeric:tabular-nums}
+#calculationView .money,#calculationView .money button,#calculationView .calc-result-table .money,#calculationView .calc-trace-cell{text-align:center!important}
+#calculationView .phase-amount small{text-align:center}
