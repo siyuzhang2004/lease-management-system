@@ -1,0 +1,25 @@
+# Local source documents and generated artifacts
+/analysis/
+/outputs/
+*.pdf
+*.xlsx
+*.xls
+/prototype/*.jpg
+/prototype/*.png
+
+# Runtime and editor files
+__pycache__/
+*.py[cod]
+*.log
+.venv/
+venv/
+node_modules/
+.pytest_cache/
+.idea/
+.vscode/
+.codex/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
