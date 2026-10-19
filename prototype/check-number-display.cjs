@@ -1,5 +1,5 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');
-const document={body:{},querySelectorAll:()=>[],addEventListener:()=>{}};
+const listeners={};const document={body:{},querySelectorAll:()=>[],addEventListener:(name,fn)=>{listeners[name]=fn;}};
 const code=fs.readFileSync(__dirname+'/number-display.js','utf8');
 vm.runInNewContext(code+`
 assert.equal(groupNumber('19007871.44'),'19,007,871.44');
@@ -10,5 +10,12 @@ assert.equal(groupNumber(''),'');
 assert.equal(ungroupNumber('1,234,567.89'),'1234567.89');
 assert.equal(ungroupNumber('1，234.56'),'1234.56');
 assert.equal(groupNumber(groupNumber('123456.78')),'123,456.78');
-console.log('Numeric grouping, precision and parsing checks passed');
-`,{assert,console,document,MutationObserver:class{observe(){}}});
+assert.equal(listeners.focusin,undefined,'Focus must never rewrite the value or cancel replacement selection');
+let stopped=false,invalid=false;
+const input={value:'179,922.19',selectionStart:10,matches:()=>true,setAttribute:()=>{invalid=true;},removeAttribute:()=>{invalid=false;},setCustomValidity:()=>{},setSelectionRange:()=>{}};
+listeners.input({target:input,stopImmediatePropagation:()=>{stopped=true;}});
+assert.equal(input.value,'179922.19');assert.equal(stopped,false);assert.equal(invalid,false);
+input.value='179922.20179922.19';listeners.input({target:input,stopImmediatePropagation:()=>{stopped=true;}});
+assert.equal(stopped,true);assert.equal(invalid,true);
+console.log('Numeric grouping, precision, replacement and invalid-input checks passed');
+`,{assert,console,document,listeners,MutationObserver:class{observe(){}}});

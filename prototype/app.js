@@ -6,7 +6,7 @@ const contracts=[
  {id:'LS-2026-005',name:'上海业务用车',company:'上海普源',lessor:'上海通达汽车租赁有限公司',type:'车辆',start:'2026-07-01',end:'2029-06-30',rent:8600,frequency:1,timing:'advance',discount:4.2,asset:252800,liability:260400,depreciation:7660.61,interest:976.5,status:'执行中'},
  {id:'LS-2025-018',name:'北京临时办公场地',company:'耐数电子',lessor:'北京融创物业有限公司',type:'房屋及建筑物',start:'2025-10-01',end:'2026-08-31',rent:18000,frequency:1,timing:'advance',discount:4.2,asset:0,liability:0,depreciation:0,interest:0,status:'已终止'}
 ];
-const $=s=>document.querySelector(s),money=n=>Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}),sum=(rows,key)=>rows.reduce((v,r)=>v+(Number(r[key])||0),0),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=s=>document.querySelector(s),money=n=>Number.isFinite(Number(n))?Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):'—',sum=(rows,key)=>rows.reduce((v,r)=>v+(Number(r[key])||0),0),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let scope='all',drawerCallback=null;
 function parseMonth(s){const m=String(s).match(/^(\d{4})-(\d{1,2})$/)||String(s).match(/(\d{4})年(\d{1,2})月/);return m?Number(m[1])*12+Number(m[2])-1:0;}
 function monthName(index){return `${Math.floor(index/12)}年${index%12+1}月`;}

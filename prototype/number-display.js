@@ -17,10 +17,16 @@ function prepareNumberDisplay(root=document){
   if(input!==document.activeElement)input.value=groupNumber(input.value);
  });
 }
-document.addEventListener('focusin',e=>{if(e.target.matches('input[data-number-display]'))e.target.value=ungroupNumber(e.target.value);},true);
+// Do not rewrite on focus: it can cancel text selection and append new text.
+// Normalize only an actual edit, before the form's input handlers run.
 document.addEventListener('input',e=>{
  const input=e.target;if(!input.matches('input[data-number-display]'))return;
  const caret=input.selectionStart,old=input.value,raw=ungroupNumber(old);
+ if((raw!==''&&!/^-?\d*(\.\d*)?$/.test(raw))||['-','.','-.'].includes(raw)||(raw!==''&&!Number.isFinite(Number(raw)))){
+  input.setAttribute('aria-invalid','true');input.setCustomValidity('请输入有效金额，最多一个小数点。');
+  e.stopImmediatePropagation();return;
+ }
+ input.removeAttribute('aria-invalid');input.setCustomValidity('');
  if(raw!==old){input.value=raw;if(caret!==null){const next=ungroupNumber(old.slice(0,caret)).length;input.setSelectionRange(next,next);}}
 },true);
 document.addEventListener('focusout',e=>{if(e.target.matches('input[data-number-display]'))e.target.value=groupNumber(e.target.value);},true);

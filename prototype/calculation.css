@@ -135,3 +135,5 @@
 #calculationView input.numeric-centered,#calculationView .calc-stage-table input.numeric-centered,#calculationView .phase-amount input.numeric-centered,#leaseEditor input.numeric-centered{text-align:center!important;font-variant-numeric:tabular-nums}
 #calculationView .money,#calculationView .money button,#calculationView .calc-result-table .money,#calculationView .calc-trace-cell{text-align:center!important}
 #calculationView .phase-amount small{text-align:center}
+
+#calculationView input[aria-invalid="true"]{border-color:#b42318;background:#fff6f5}

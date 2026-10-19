@@ -42,6 +42,10 @@ class Handler(SimpleHTTPRequestHandler):
                 result=calculate(params)
                 records.append(dict(id=params['recordId'],params=result['params'],result=result))
             return self.respond(200,records)
+        if path == '/api/disclosure-reference':
+            source=BASE.parent/'analysis'/'disclosures'/'reference.json'
+            if not source.exists():return self.respond(200,{})
+            with open(source,'r',encoding='utf-8') as file:return self.respond(200,json.load(file))
         if path.startswith('/api/'): return self.respond(404, dict(error='接口不存在。'))
         super().do_GET()
 

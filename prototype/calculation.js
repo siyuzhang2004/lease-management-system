@@ -70,6 +70,7 @@ async function showLeaseCalculation(params=null){
  window.scrollTo(0,0);
 }
 async function runLeaseCalculation(){
+ if(document.querySelector('#calculationView input[aria-invalid="true"]')){showCalcError('金额格式不正确，请修正后再生成计算表。');return;}
  if(!calcParams)return;
  const missing=[...document.querySelectorAll('#calculationView [data-calc]')].filter(input=>['company','name','lessor','start','end','annualRate','taxRate'].includes(input.dataset.calc)&&!input.value.trim());
  const emptyStage=[...document.querySelectorAll('#calcStages input')].some(input=>!input.value.trim());
