@@ -17,6 +17,13 @@ const checks=`
  assert.equal(existing.OTHER.params.name,'User modified contract');assert.equal(loads,1);
  const invalid=makeStorage();await assert.rejects(()=>seedDefaultLease(invalid,{},async()=>({id:'XIAN'})));
  assert.equal(invalid.getItem('leaseDefaultContract.v1'),null);
+ const renaming={A:{id:'A',params:{company:'西安普源',revision:4,annualRate:.042},financialParameters:{company:'西安普源'}},B:{id:'B',params:{company:'深圳普源精电科技有限公司',revision:3}}};
+ let recalculations=0;
+ await normalizeWorkspaceCompanyNames(renaming,async params=>{recalculations++;return {params,initial:{asset:10}};});
+ assert.equal(recalculations,1);assert.equal(renaming.A.params.company,'西安普源精电科技有限公司');assert.equal(renaming.A.params.revision,5);assert.equal(renaming.A.params.annualRate,.042);assert.equal(renaming.A.financialParameters.company,renaming.A.params.company);assert.equal(renaming.B.params.revision,3);
+ const renamed={C:{id:'C',params:{company:'北京耐数电子有限公司',revision:3,annualRate:.0385}}};
+ await normalizeWorkspaceCompanyNames(renamed,async params=>({params}));
+ assert.equal(renamed.C.params.company,'北京普源耐数电子有限公司');assert.equal(renamed.C.params.contractCompany,'北京耐数电子有限公司');assert.equal(renamed.C.params.revision,4);assert.equal(renamed.C.params.annualRate,.0385);
  console.log('Default contract checks passed: first visit, repeat visit, existing data, deletion and invalid response');
 })().catch(error=>{console.error(error);process.exitCode=1;});
 `;

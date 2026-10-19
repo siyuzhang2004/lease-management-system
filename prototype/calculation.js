@@ -94,7 +94,7 @@ function renderCalcResults(){
  $('#calcResultTable').innerHTML=`<table class="calc-result-table ${calcTab==='full'?'calc-full-table':''}"><thead>${group}<tr>${heads.map(([title,key])=>`<th class="${['start','end','year','period'].includes(key)?'':'money'}">${title}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr class="${r===asof?'calc-asof-row':''}">${heads.map(([,key])=>`<td class="${['start','end','year','period'].includes(key)?'':'money'} ${['closingLiability','closingAsset','liability','asset'].includes(key)?'calc-key-balance':''}">${value(r,key)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
  document.querySelectorAll('[data-calc-tab]').forEach(b=>b.classList.toggle('active',b.dataset.calcTab===calcTab));
  $('#calcRowCount').textContent=calcTab==='annual'?`共 ${rows.length} 个年度；初始支付 ¥${money(result.initial.upfront)} 单列于初始确认`:`共 ${rows.length} 期 · 初始支付 ¥${money(result.initial.upfront)} · 全期利息 ¥${money(result.totals.interest)}`;
- $('#calcNotes').innerHTML=['租赁负债按尚未支付租赁付款额的现值初始计量。','租赁付款按照各阶段约定的金额、付款频率及期初或期末支付安排生成。','利息按年折现率折算至各期计提；末次付款及折旧对尾差作结清处理。','本表反映合同约定的使用权资产与租赁负债余额，不记录实际付款状态。'].map(t=>`<li>${esc(t)}</li>`).join('');
+ $('#calcNotes').innerHTML=(result.notes||[]).map(t=>`<li>${esc(t)}</li>`).join('');
  if(calcChanged){$('#calcAudit').textContent='参数已修改，下方为上次计算结果；同步完成后更新。';$('#calcAudit').className='calc-audit-info';}syncCalcLinkStatus();
 }
 

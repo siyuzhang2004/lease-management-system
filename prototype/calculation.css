@@ -95,3 +95,38 @@
 #calculationView #contractAdvancedBody .lf-advanced-note{padding:0 0 18px;font-size:13px;line-height:22px;color:var(--form-help)}
 #calculationView #contractAdvancedBody>.calc-trace-warning{margin:0 0 18px;padding:14px 18px;font-size:13px;line-height:22px}
 @media(max-width:800px){#calculationView #contractAdvancedBody .lf-grid{grid-template-columns:minmax(0,1fr)}#calculationView #contractAdvancedBody .lf-grid>.lf-check:not(.lf-full){padding-top:0}#calculationView #contractAdvancedBody .lf-repeat{grid-template-columns:20px minmax(0,1fr) minmax(0,1fr) 40px;gap:10px}}
+
+.contract-back-bar{display:flex;align-items:center;gap:16px;margin-bottom:16px}.contract-back-bar span{font-size:13px;color:#46515c}.contract-back-button{min-height:40px;padding:9px 16px!important;font-size:14px!important;color:#262626!important;background:#fff!important;border:1px solid #c7cdd4!important}.contract-back-button:hover{border-color:#b99b13!important;background:#fffbea!important}#contractListView .contract-company{min-width:230px}#contractListView .contract-company strong{font-size:14px;line-height:1.7}#contractListView th:nth-child(1){width:21%}#contractListView th:nth-child(2){width:34%}
+
+/* Initial recognition: a single category per section, with shared form sizing. */
+.lf-initial-sections{padding:0 24px 24px}.lf-initial-section{padding:24px 0;border-top:1px solid #e2e7ec}.lf-initial-section:first-child{border-top:0;padding-top:4px}.lf-initial-section:last-child{padding-bottom:0}.lf-initial-heading{margin:0 0 20px}.lf-initial-heading h3{font-size:15px;line-height:24px;color:#202934;margin:0 0 6px;font-weight:600}.lf-initial-heading p{font-size:13px;line-height:22px;color:#43515c;margin:0}.lf-initial-section>.lf-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin:0}.lf-initial-section>.lf-toggle{margin:0;padding:0 0 16px;border:0}
+#calculationView #contractAdvancedBody .lf-initial-section>.lf-grid{margin:0;grid-template-columns:repeat(2,minmax(0,1fr))}
+#calculationView #contractAdvancedBody .lf-initial-section>.lf-toggle{margin:0;padding:0;border:0}
+#calculationView #contractAdvancedBody .lf-initial-section>.lf-grid[data-financial-show]{margin:20px 0 0;padding:20px}
+@media(max-width:800px){.lf-initial-sections{padding:0 18px 22px}.lf-initial-section>.lf-grid,#calculationView #contractAdvancedBody .lf-initial-section>.lf-grid{grid-template-columns:minmax(0,1fr)}}
+
+.parameter-lock-bar{display:flex;align-items:center;justify-content:space-between;gap:20px;border:1px solid #dce2e7;background:#fff;padding:16px 22px;margin:0 0 18px;border-radius:4px}.parameter-lock-bar strong{font-size:15px;color:#26343e;margin-right:18px}.parameter-lock-bar span{font-size:13px;color:#43515c}.parameter-lock-bar button{min-height:40px;padding:9px 18px;white-space:nowrap}#calculationView[data-parameters-locked="true"] input:disabled,#calculationView[data-parameters-locked="true"] select:disabled,#calculationView[data-parameters-locked="true"] textarea:disabled{opacity:1;color:#34414c;background:#f3f5f7;cursor:default}.schedule-details>td{padding:18px 24px!important;background:#f7f9fb}.schedule-details table{width:100%}.schedule-details th{background:#eef1f4}.schedule-details td{background:white}
+
+.parameter-lock-bar[hidden]{display:none}
+
+/* Compact field widths follow the amount of information, not the viewport. */
+.parameter-lock-bar{position:sticky;top:70px;z-index:3;box-shadow:none}
+#calculationView #contractAdvancedBody .lf-grid,#calculationView #contractAdvancedBody .lf-initial-section>.lf-grid{grid-template-columns:repeat(auto-fit,minmax(240px,300px));justify-content:start;gap:22px 24px}
+#calculationView #contractAdvancedBody .lf-field:not(.lf-full){width:100%;max-width:300px}
+#calculationView #contractAdvancedBody .lf-field.lf-full{max-width:948px}
+#calculationView #contractAdvancedBody .lf-field textarea{min-height:80px}
+#calculationView #contractAdvancedBody .lf-repeat{grid-template-columns:24px minmax(180px,280px) minmax(180px,280px) 48px;justify-content:start;gap:16px}
+#calculationView #contractAdvancedBody [data-financial-show]>.lf-field{margin-top:22px}
+#calculationView .calc-stage-table small{white-space:normal;line-height:20px}
+#calculationView[data-rent-layout="calendar"] .calc-stage-table{min-width:850px;max-width:1120px}
+#calculationView[data-rent-layout="calendar"] .calc-stage-table>thead th{width:25%;text-align:left}
+#calculationView[data-rent-layout="calendar"] .calc-stage-table input{max-width:260px}
+#calculationView[data-rent-layout="calendar"] .calc-stage-table select{max-width:200px}
+#calculationView[data-rent-layout="schedule"] .calc-stage-table{min-width:900px}
+#calculationView[data-rent-layout="schedule"] .calc-stage-table>thead th:nth-child(1){width:35%;text-align:left}
+#calculationView[data-rent-layout="schedule"] .calc-stage-table>thead th:nth-child(2){width:7%;text-align:left}
+#calculationView[data-rent-layout="schedule"] .calc-stage-table>thead th:nth-child(3){width:23%;text-align:left}
+#calculationView[data-rent-layout="schedule"] .calc-stage-table>thead th:nth-child(4){width:23%;text-align:left}
+#calculationView[data-rent-layout="schedule"] .calc-stage-table>thead th:nth-child(5){width:12%;text-align:left}
+#calculationView[data-rent-layout="schedule"] .calc-stage-table input{max-width:220px}
+@media(max-width:800px){.parameter-lock-bar{top:62px;align-items:flex-start}.parameter-lock-bar span{display:block;margin-top:6px}#calculationView #contractAdvancedBody .lf-grid,#calculationView #contractAdvancedBody .lf-initial-section>.lf-grid{grid-template-columns:minmax(0,300px)}#calculationView #contractAdvancedBody .lf-repeat{grid-template-columns:18px minmax(0,1fr) minmax(0,1fr) 40px}#calculationView #contractAdvancedBody .lf-field:not(.lf-full){max-width:100%}}

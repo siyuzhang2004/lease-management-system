@@ -1,0 +1,81 @@
+/* One alignment grid for every expanded financial section. */
+#calculationView #contractAdvancedBody{
+ --advanced-column:320px;
+ --advanced-gap:24px;
+ --advanced-width:1008px;
+}
+#calculationView #contractAdvancedBody .lf-card{padding:0 24px 24px;overflow:visible}
+#calculationView #contractAdvancedBody .lf-card-head{padding:22px 0 18px;margin-bottom:22px}
+#calculationView #contractAdvancedBody .lf-grid,
+#calculationView #contractAdvancedBody .lf-initial-section>.lf-grid{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ max-width:var(--advanced-width);width:100%;gap:24px var(--advanced-gap);
+ padding:0;margin:0 0 24px;align-items:start;
+}
+#calculationView #contractAdvancedBody .lf-field,
+#calculationView #contractAdvancedBody .lf-field:not(.lf-full){
+ width:100%;max-width:none;min-width:0;gap:8px;margin:0;
+}
+#calculationView #contractAdvancedBody .lf-field>label{font-weight:500;line-height:22px;min-height:22px}
+#calculationView #contractAdvancedBody .lf-field input,
+#calculationView #contractAdvancedBody .lf-field select{width:100%;height:40px}
+#calculationView #contractAdvancedBody .lf-field small{line-height:20px;min-height:0}
+#calculationView #contractAdvancedBody .lf-field small:empty{display:none}
+#calculationView #contractAdvancedBody .lf-wide{grid-column:span 2}
+#calculationView #contractAdvancedBody .lf-field.lf-full{grid-column:1/-1;max-width:var(--advanced-width)}
+#calculationView #contractAdvancedBody .lf-field textarea{min-height:76px;line-height:22px}
+#calculationView #contractAdvancedBody .lf-toggle{
+ max-width:var(--advanced-width);padding:18px 0;margin:0;border-top:1px solid #e5e9ed;
+}
+#calculationView #contractAdvancedBody .lf-toggle b{font-weight:600}
+#calculationView #contractAdvancedBody .lf-toggle small{margin-top:4px}
+#calculationView #contractAdvancedBody [data-financial-show]:not(.lf-grid),
+#calculationView #contractAdvancedBody .lf-grid[data-financial-show],
+#calculationView #contractAdvancedBody .lf-initial-section>.lf-grid[data-financial-show]{
+ max-width:var(--advanced-width);padding:18px 0 0;margin:0 0 24px;
+ background:none;border:0;border-radius:0;
+}
+#calculationView #contractAdvancedBody [data-financial-show]>.lf-field{max-width:320px;margin:0 0 20px}
+#calculationView #contractAdvancedBody .lf-repeat{
+ display:grid;position:relative;grid-template-columns:repeat(3,minmax(0,1fr));
+ max-width:var(--advanced-width);gap:10px var(--advanced-gap);padding:0 0 20px;margin:0 0 20px;
+}
+#calculationView #contractAdvancedBody .lf-repeat>span{
+ grid-column:1/-1;display:block;height:24px;line-height:24px;font-weight:600;color:#344350;
+}
+#calculationView #contractAdvancedBody .lf-repeat>span::before{content:'免租区间 '}
+#calculationView #contractAdvancedBody .lf-repeat>label{line-height:22px;gap:8px}
+#calculationView #contractAdvancedBody .lf-repeat>button{
+ position:absolute;right:0;top:0;min-height:24px;height:24px;line-height:24px;
+}
+#calculationView #contractAdvancedBody .lf-add{height:36px;min-height:36px;margin:0 0 22px}
+#calculationView #contractAdvancedBody .lf-inline-help{max-width:var(--advanced-width);margin:0 0 24px}
+#calculationView #contractAdvancedBody .lf-condition{
+ max-width:var(--advanced-width);padding:18px 0;margin:0 0 24px;
+ background:none;border:0;border-top:1px solid #e1e6eb;border-radius:0;
+}
+#calculationView #contractAdvancedBody .lf-condition>.lf-grid{margin:0}
+#calculationView #contractAdvancedBody .lf-rule{margin-top:18px}
+#calculationView #contractAdvancedBody .lf-initial-sections{padding:0}
+#calculationView #contractAdvancedBody .lf-initial-section{padding:22px 0}
+#calculationView #contractAdvancedBody .lf-initial-section:first-child{padding-top:0}
+#calculationView #contractAdvancedBody .lf-initial-section:last-child{padding-bottom:0}
+#calculationView #contractAdvancedBody .lf-initial-section>.lf-grid{margin-bottom:0}
+#calculationView #contractAdvancedBody .lf-initial-heading{margin-bottom:18px}
+#calculationView #contractAdvancedBody .lf-initial-section>.lf-toggle{padding:0 0 4px}
+#calculationView #contractAdvancedBody .lf-card>.lf-field{max-width:var(--advanced-width);margin:0 0 24px}
+#calculationView #contractAdvancedBody .lf-source{margin:18px 0 0;padding:16px 0 0;border-top:1px solid #e5e9ed}
+@media(max-width:1200px){
+ #calculationView #contractAdvancedBody{--advanced-width:664px}
+ #calculationView #contractAdvancedBody .lf-grid,
+ #calculationView #contractAdvancedBody .lf-initial-section>.lf-grid,
+ #calculationView #contractAdvancedBody .lf-repeat{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:760px){
+ #calculationView #contractAdvancedBody .lf-card{padding:0 18px 20px}
+ #calculationView #contractAdvancedBody .lf-grid,
+ #calculationView #contractAdvancedBody .lf-initial-section>.lf-grid,
+ #calculationView #contractAdvancedBody .lf-repeat{grid-template-columns:minmax(0,1fr)}
+ #calculationView #contractAdvancedBody .lf-wide{grid-column:auto}
+ #calculationView #contractAdvancedBody [data-financial-show]>.lf-field{max-width:none}
+}

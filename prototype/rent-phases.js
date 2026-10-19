@@ -7,7 +7,7 @@ function editableRentPhases(){if(!calcParams.rentPhases)calcParams.rentPhases=cl
 function phaseInput(index,key,type,value,attrs=''){return `<input data-phase="${index}" data-phase-field="${key}" aria-label="阶段${index+1}${{months:'月数',gross:'租金总额',endDate:'结束日'}[key]}" type="${type}" value="${esc(value??'')}" ${attrs}>`;}
 function phaseDate(offset){try{return calcDateAdd(calcParams.start,offset);}catch{return '';}}
 function renderRentPhases(){
- const view=$('#calculationView'),phases=rentPhases();
+ const view=$('#calculationView'),phases=rentPhases();view.dataset.rentLayout='phases';
  view.querySelector('.calc-rent .calc-section-head p').textContent='每个阶段可按合同自由设置月数和租金，再选择付款频率及期初／期末支付。阶段合计须覆盖合同租赁期，不自动延长合同。';
  view.querySelector('.calc-stage-table thead').innerHTML='<tr><th>阶段</th><th>阶段起止日期</th><th>月数</th><th>阶段租金总额（含税，元）</th><th>付款频率</th><th>付款时点</th><th>操作</th></tr>';
  let offset=0;$('#calcStages').innerHTML=phases.map((phase,index)=>{const start=phaseDate(offset),months=Number(phase.months)||0,end=months?calcDateBefore(phaseDate(offset+months)):'';offset+=months;

@@ -34,6 +34,14 @@ class Handler(SimpleHTTPRequestHandler):
                 params=json.load(source)
             result=calculate(params)
             return self.respond(200,dict(id=result['params']['recordId'],params=result['params'],result=result))
+        if path == '/api/workspace-contracts':
+            records=[]
+            for path in sorted((BASE.parent/'analysis'/'workspace-contracts').glob('*.json')):
+                with open(path,'r',encoding='utf-8') as source:
+                    params=json.load(source)
+                result=calculate(params)
+                records.append(dict(id=params['recordId'],params=result['params'],result=result))
+            return self.respond(200,records)
         if path.startswith('/api/'): return self.respond(404, dict(error='接口不存在。'))
         super().do_GET()
 

@@ -13,6 +13,7 @@ function closeLeaseEditor(){}function requestCloseLease(){}
 const nodes={};const $=s=>nodes[s]||(nodes[s]={hidden:false,innerHTML:'',onclick:null});
 const saved={};const localStorage={setItem(k,v){saved[k]=v;},getItem(k){return saved[k]||null;}};function toast(){}
 let testDeleteAction=null,calcAutoTimer=null,calcPendingRefresh=false;
+const historyCalls=[];const location={hash:'#contracts'};const history={pushState(a,b,url){historyCalls.push(url);location.hash=url;},replaceState(a,b,url){location.hash=url;}};const routeEvents={};const window={addEventListener(name,fn){routeEvents[name]=fn;}};
 function clearTimeout(){}function openDrawer(title,body,label,action){testDeleteAction=action;}
 `;
 const checks=`
@@ -29,6 +30,8 @@ calcResult.initial.liability=200;assert.equal(leaseRecords.A.result.initial.liab
 calcParams={recordId:'B',revision:9,annualRate:0.02};markCalcChanged();
 assert.equal(leaseRecords.B.params.revision,10);assert.equal(leaseRecords.A.params.revision,2);
 assert.equal(routeUrl('LS-XA-2023-001','parameters'),'#contract/LS-XA-2023-001/parameters');
+navigateContractUrl('#contract/A/overview');assert.equal(historyCalls.length,1);navigateContractUrl('#contract/A/overview');assert.equal(historyCalls.length,1);navigateContractUrl('#contracts');assert.equal(historyCalls.length,2);assert.equal(typeof routeEvents.popstate,'function');
+const header=contextHeader({id:'A',params:{name:'Office',company:'Tenant'}},'overview');assert.ok(header.includes('返回合同台账'));
 showContractList=()=>{};deleteLeaseContract('A');testDeleteAction();
 assert.equal(leaseRecords.A,undefined);assert.equal(leaseRecords.B.params.revision,10);
 assert.equal(JSON.parse(saved['leaseDeletedContracts.v1']).A.id,'A');

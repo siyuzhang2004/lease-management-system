@@ -166,6 +166,12 @@ def calculate(params):
     p.setdefault('revision',1)
     if not isinstance(p['recordId'],str) or not 1<=len(p['recordId'])<=80 or not isinstance(p['revision'],int) or isinstance(p['revision'],bool) or p['revision']<1:
         raise ValueError('关联记录编号或版本不正确。')
+    if p.get('calendarTerms') is not None:
+        from calendar_contract import calculate_calendar_contract
+        return calculate_calendar_contract(p)
+    if p.get("paymentSchedule") is not None:
+        from scheduled_lease import calculate_scheduled
+        return calculate_scheduled(p)
     expand_rent_phases(p)
     validate(p)
     n, annual, tax = p['months'], p['annualRate'], p['taxRate']
