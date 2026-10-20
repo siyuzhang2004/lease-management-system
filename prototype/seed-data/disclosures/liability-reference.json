@@ -1,0 +1,217 @@
+{
+  "2026-06": {
+    "companies": {
+      "深圳普源精电科技有限公司": {
+        "values": {
+          "closing": 1992576,
+          "current": 1831403.54,
+          "noncurrent": 161172.460000001,
+          "opening": 2697533.56,
+          "currentOpening": 1752490.67,
+          "noncurrentOpening": 945042.89
+        },
+        "currency": "CNY",
+        "source": "47.租赁负债0630-OK.xlsx",
+        "sheet": "47.租赁负债",
+        "range": "C10:D12"
+      },
+      "西安普源精电科技有限公司": {
+        "values": {
+          "closing": 16322703.28,
+          "current": 1881122.19,
+          "noncurrent": 14441581.09,
+          "opening": 15984086.68,
+          "currentOpening": 1855015.32,
+          "noncurrentOpening": 14129071.36
+        },
+        "currency": "CNY",
+        "source": "47.租赁负债0630-OK.xlsx",
+        "sheet": "47.租赁负债",
+        "range": "C16:D18"
+      },
+      "RIGOL TECHNOLOGIES, USA INC.": {
+        "values": {
+          "closing": 23378.23,
+          "current": 19513.2299999999,
+          "noncurrent": 3865.0000000001,
+          "opening": 49900.88,
+          "currentOpening": 42170.88,
+          "noncurrentOpening": 7730
+        },
+        "currency": "USD",
+        "source": "47.租赁负债0630-OK.xlsx",
+        "sheet": "47.租赁负债",
+        "range": "C22:D24"
+      },
+      "RIGOL TECHNOLOGIES EU GmbH": {
+        "values": {
+          "closing": 256883.47,
+          "current": 68213.4400000002,
+          "noncurrent": 188670.03,
+          "opening": 292635.67,
+          "currentOpening": 71980.73,
+          "noncurrentOpening": 220654.94
+        },
+        "currency": "EUR",
+        "source": "47.租赁负债0630-OK.xlsx",
+        "sheet": "47.租赁负债",
+        "range": "C28:D30"
+      },
+      "ディー・エイチ・エル・ジャパン株式会社": {
+        "values": {
+          "closing": 1509570,
+          "current": 1509570,
+          "noncurrent": 0,
+          "opening": 4488365,
+          "currentOpening": 4488365,
+          "noncurrentOpening": 0
+        },
+        "currency": "JPY",
+        "source": "47.租赁负债0630-OK.xlsx",
+        "sheet": "47.租赁负债",
+        "range": "C34:D36"
+      },
+      "RIGOL KOREA CO,. LTD.": {
+        "values": {
+          "closing": 20652726,
+          "current": 16470235,
+          "noncurrent": 4182491,
+          "opening": 28734267,
+          "currentOpening": 0,
+          "noncurrentOpening": 28734267
+        },
+        "currency": "KRW",
+        "source": "47.租赁负债0630-OK.xlsx",
+        "sheet": "47.租赁负债",
+        "range": "C40:D42"
+      }
+    },
+    "group": {
+      "values": {
+        "closing": 20624095.08,
+        "current": 4511195.45,
+        "noncurrent": 16112899.63,
+        "opening": 21783078.44,
+        "currentOpening": 4697779.26,
+        "noncurrentOpening": 17085299.18
+      },
+      "currency": "CNY",
+      "source": "47.租赁负债0630-OK.xlsx",
+      "sheet": "47.租赁负债",
+      "range": "C4:D6",
+      "excluded": "马来西亚"
+    }
+  },
+  "2026-09": {
+    "companies": {
+      "深圳普源精电科技有限公司": {
+        "values": {
+          "closing": 1556874.51,
+          "current": 1556874.51,
+          "noncurrent": 0,
+          "opening": 2697533.56,
+          "currentOpening": 1752490.67,
+          "noncurrentOpening": 945042.89
+        },
+        "currency": "CNY",
+        "source": "47.租赁负债0930-OK.xlsx",
+        "sheet": "47.租赁负债",
+        "range": "C10:D12"
+      },
+      "西安普源精电科技有限公司": {
+        "values": {
+          "closing": 13981748.5,
+          "current": 1914273.08,
+          "noncurrent": 12067475.42,
+          "opening": 15984086.68,
+          "currentOpening": 1855015.32,
+          "noncurrentOpening": 14129071.36
+        },
+        "currency": "CNY",
+        "source": "47.租赁负债0930-OK.xlsx",
+        "sheet": "47.租赁负债",
+        "range": "C16:D18"
+      },
+      "RIGOL TECHNOLOGIES, USA INC.": {
+        "values": {
+          "closing": 7929.77,
+          "current": 7929.76999999991,
+          "noncurrent": 9.00399754755199e-11,
+          "opening": 49900.88,
+          "currentOpening": 42170.88,
+          "noncurrentOpening": 7730
+        },
+        "currency": "USD",
+        "source": "47.租赁负债0930-OK.xlsx",
+        "sheet": "47.租赁负债",
+        "range": "C22:D24"
+      },
+      "RIGOL TECHNOLOGIES EU GmbH": {
+        "values": {
+          "closing": 238829.14,
+          "current": 66311.02,
+          "noncurrent": 172518.12,
+          "opening": 292635.67,
+          "currentOpening": 71980.73,
+          "noncurrentOpening": 220654.94
+        },
+        "currency": "EUR",
+        "source": "47.租赁负债0930-OK.xlsx",
+        "sheet": "47.租赁负债",
+        "range": "C28:D30"
+      },
+      "ディー・エイチ・エル・ジャパン株式会社": {
+        "values": {
+          "closing": 0,
+          "current": 0,
+          "noncurrent": 0,
+          "opening": 4488365,
+          "currentOpening": 4488365,
+          "noncurrentOpening": 0
+        },
+        "currency": "JPY",
+        "source": "47.租赁负债0930-OK.xlsx",
+        "sheet": "47.租赁负债",
+        "range": "C34:D36"
+      },
+      "RIGOL KOREA CO,. LTD.": {
+        "values": {
+          "closing": 16573803,
+          "current": 16573803,
+          "noncurrent": 0,
+          "opening": 28734267,
+          "currentOpening": 0,
+          "noncurrentOpening": 28734267
+        },
+        "currency": "KRW",
+        "source": "47.租赁负债0930-OK.xlsx",
+        "sheet": "47.租赁负债",
+        "range": "C40:D42"
+      }
+    },
+    "group": {
+      "values": {
+        "closing": 17494473.16,
+        "current": 4112150.87,
+        "noncurrent": 13382322.29,
+        "opening": 21783078.43,
+        "currentOpening": 4697779.26,
+        "noncurrentOpening": 17085299.17
+      },
+      "currency": "CNY",
+      "source": "47.租赁负债0930-OK.xlsx",
+      "sheet": "47.租赁负债",
+      "range": "C4:D6",
+      "excluded": "马来西亚"
+    },
+    "trial": {
+      "source": "00 合并报表-普源精电科技股份有限公司 2026 09.xlsx",
+      "sheet": "1.1合并试算表 (母子) ",
+      "noncurrent": 13382322.29,
+      "current": 4112150.88,
+      "excludedMalaysia": 863685.29,
+      "excludedParentOther": 221387,
+      "range": "T90:AK96"
+    }
+  }
+}

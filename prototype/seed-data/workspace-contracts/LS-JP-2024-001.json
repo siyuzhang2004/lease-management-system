@@ -1,0 +1,29 @@
+{
+  "recordId": "LS-JP-2024-001",
+  "contractId": "LS-JP-2024-001",
+  "revision": 1,
+  "company": "ディー・エイチ・エル・ジャパン株式会社",
+  "name": "东京都丰岛区南大塚3-45-5办公室",
+  "lessor": "成利企業有限公司",
+  "availableDate": "2024-11-01",
+  "start": "2024-11-01",
+  "end": "2026-10-31",
+  "months": 24,
+  "annualRate": 0.036,
+  "taxRate": 0.1,
+  "area": 0,
+  "deposit": 0,
+  "assetAdjustment": 0,
+  "displayMode": "auto",
+  "currency": "JPY",
+  "calculationPrecision": 0,
+  "policy": "每月预付下月租金；日元现值、利息及折旧按整数截尾，末期结清尾差。",
+  "rentPhases": [
+    {
+      "months": 24,
+      "gross": 13364208,
+      "frequency": 1,
+      "timing": "advance"
+    }
+  ]
+}

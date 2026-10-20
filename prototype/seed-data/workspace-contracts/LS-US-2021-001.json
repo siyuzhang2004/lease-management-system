@@ -1,0 +1,80 @@
+{
+  "recordId": "LS-US-2021-001",
+  "contractId": "LS-US-2021-001",
+  "revision": 1,
+  "company": "RIGOL TECHNOLOGIES, USA INC.",
+  "name": "10220 SW Nimbus, Suite K-7, Portland, OR 97223",
+  "lessor": "Tigard Sub",
+  "start": "2021-09-01",
+  "end": "2026-11-30",
+  "availableDate": "2021-09-01",
+  "months": 63,
+  "currency": "USD",
+  "annualRate": 0.0325,
+  "taxRate": 0,
+  "area": 335.84,
+  "deposit": 7962,
+  "assetAdjustment": 0,
+  "displayMode": "auto",
+  "roundingPolicy": "round-total-pv",
+  "recognizeDuringFreePeriod": true,
+  "freeStart": "2021-09-01",
+  "freeEnd": "2021-11-30",
+  "rentPhases": [
+    {
+      "months": 3,
+      "gross": 0.0,
+      "frequency": 1,
+      "timing": "arrears"
+    },
+    {
+      "months": 9,
+      "gross": 30906.0,
+      "frequency": 1,
+      "timing": "arrears"
+    },
+    {
+      "months": 12,
+      "gross": 42444.0,
+      "frequency": 1,
+      "timing": "arrears"
+    },
+    {
+      "months": 12,
+      "gross": 43716.0,
+      "frequency": 1,
+      "timing": "arrears"
+    },
+    {
+      "months": 12,
+      "gross": 45036.0,
+      "frequency": 1,
+      "timing": "arrears"
+    },
+    {
+      "months": 12,
+      "gross": 46380.0,
+      "frequency": 1,
+      "timing": "arrears"
+    },
+    {
+      "months": 3,
+      "gross": 11943.0,
+      "frequency": 1,
+      "timing": "arrears"
+    }
+  ],
+  "contractPaymentTiming": "advance",
+  "paymentTimingDecision": "use-existing-arrears",
+  "policy": "条款登记为期初付；经确认沿用现有核算的期末付款口径。2021年9月至11月免租，纳入确认、计息及折旧期间。物业费单独核算。",
+  "advanced": {
+    "freeEnabled": true,
+    "freePeriods": [
+      {
+        "start": "2021-09-01",
+        "end": "2021-11-30"
+      }
+    ],
+    "servicePolicy": "separate"
+  }
+}

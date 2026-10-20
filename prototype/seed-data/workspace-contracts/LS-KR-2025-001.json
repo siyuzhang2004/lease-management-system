@@ -1,0 +1,35 @@
+{
+  "recordId": "LS-KR-2025-001",
+  "contractId": "LS-KR-2025-001",
+  "revision": 1,
+  "company": "RIGOL KOREA CO,. LTD.",
+  "name": "韩国公司房屋租赁（2025—2027）",
+  "lessor": "待补充",
+  "currency": "KRW",
+  "start": "2025-10-05",
+  "availableDate": "2025-10-05",
+  "end": "2027-09-30",
+  "months": 24,
+  "sourceContractEnd": "2027-10-05",
+  "periodBasis": "calendar-month",
+  "annualRate": 0.0251,
+  "calculationPrecision": 0,
+  "roundingPolicy": "round-total-pv",
+  "taxRate": 0,
+  "area": 0,
+  "deposit": 0,
+  "assetAdjustment": 0,
+  "displayMode": "auto",
+  "rentPhases": [
+    {
+      "months": 24,
+      "gross": 33600000.0,
+      "frequency": 1,
+      "timing": "arrears"
+    }
+  ],
+  "policy": "按2025年10月至2027年9月共24个自然月核算，期末付款；首月按完整一期计息及折旧。原表头结束日为2027-10-05，经确认按明细于2027年9月末结束并处置。韩元金额四舍五入至整数，末期结清尾差。租金按现有核算金额登记，不另行换算税额；出租方、押金及面积待补充。",
+  "advanced": {
+    "notes": "原表每月折旧1,364,050韩元，末期剩余3韩元在最后一期一并计提。本次仅接入当前合同，不补录以前的已结束合同。"
+  }
+}

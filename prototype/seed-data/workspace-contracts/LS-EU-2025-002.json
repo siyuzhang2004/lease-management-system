@@ -1,0 +1,34 @@
+{
+  "recordId": "LS-EU-2025-002",
+  "contractId": "LS-EU-2025-002",
+  "revision": 1,
+  "company": "RIGOL TECHNOLOGIES EU GmbH",
+  "name": "Friedrichshafener Straße 2 仓库",
+  "lessor": "AERO-Bildungs GmbH",
+  "currency": "EUR",
+  "start": "2025-05-01",
+  "availableDate": "2025-05-01",
+  "end": "2026-12-31",
+  "months": 20,
+  "periodBasis": "calendar-month",
+  "annualRate": 0.0265,
+  "taxRate": 0,
+  "calculationPrecision": 2,
+  "roundingPolicy": "round-total-pv",
+  "assetAdjustment": 0,
+  "area": 104.45,
+  "deposit": 0,
+  "displayMode": "auto",
+  "rentPhases": [
+    {
+      "months": 20,
+      "gross": 15667.6,
+      "frequency": 1,
+      "timing": "arrears"
+    }
+  ],
+  "policy": "经确认按固定租金、不递增、每月期末付款核算；年折现率2.65%按现有核算结果复核。租金为不含税核算金额，服务费用单独核算；末期结清折旧及负债尾差。",
+  "advanced": {
+    "notes": "合同约定自2026年1月起每年递增2%，月初付款；经确认采用不涨租、期末付款口径。按当前租期至2026-12-31核算；续租条款未纳入当前租期。押金待补充。"
+  }
+}

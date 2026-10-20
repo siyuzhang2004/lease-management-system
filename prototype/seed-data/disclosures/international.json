@@ -1,0 +1,1787 @@
+{
+  "rates": {
+    "2019-12": {
+      "USD": {
+        "value": 6.9762,
+        "cell": "Rate!C2"
+      },
+      "EUR": {
+        "value": 7.8155,
+        "cell": "Rate!D2"
+      },
+      "JPY": {
+        "value": 0.06409,
+        "cell": "Rate!E2"
+      },
+      "HKD": {
+        "value": 0.8958,
+        "cell": "Rate!F2"
+      }
+    },
+    "2020-01": {
+      "USD": {
+        "value": 6.8876,
+        "cell": "Rate!C3"
+      },
+      "EUR": {
+        "value": 7.64,
+        "cell": "Rate!D3"
+      },
+      "JPY": {
+        "value": 0.06274,
+        "cell": "Rate!E3"
+      },
+      "HKD": {
+        "value": 0.8859,
+        "cell": "Rate!F3"
+      }
+    },
+    "2020-02": {
+      "USD": {
+        "value": 7.0066,
+        "cell": "Rate!C4"
+      },
+      "EUR": {
+        "value": 7.7059,
+        "cell": "Rate!D4"
+      },
+      "JPY": {
+        "value": 0.06392,
+        "cell": "Rate!E4"
+      },
+      "HKD": {
+        "value": 0.8987,
+        "cell": "Rate!F4"
+      }
+    },
+    "2020-03": {
+      "USD": {
+        "value": 7.0851,
+        "cell": "Rate!C5"
+      },
+      "EUR": {
+        "value": 7.8088,
+        "cell": "Rate!D5"
+      },
+      "JPY": {
+        "value": 0.06554,
+        "cell": "Rate!E5"
+      },
+      "HKD": {
+        "value": 0.9137,
+        "cell": "Rate!F5"
+      }
+    },
+    "2020-04": {
+      "USD": {
+        "value": 7.0571,
+        "cell": "Rate!C6"
+      },
+      "EUR": {
+        "value": 7.6744,
+        "cell": "Rate!D6"
+      },
+      "JPY": {
+        "value": 0.0662,
+        "cell": "Rate!E6"
+      },
+      "HKD": {
+        "value": 0.9106,
+        "cell": "Rate!F6"
+      }
+    },
+    "2020-05": {
+      "USD": {
+        "value": 7.1316,
+        "cell": "Rate!C7"
+      },
+      "EUR": {
+        "value": 7.897,
+        "cell": "Rate!D7"
+      },
+      "JPY": {
+        "value": 0.06623,
+        "cell": "Rate!E7"
+      },
+      "HKD": {
+        "value": 0.9199,
+        "cell": "Rate!F7"
+      }
+    },
+    "2020-06": {
+      "USD": {
+        "value": 7.0795,
+        "cell": "Rate!C8"
+      },
+      "EUR": {
+        "value": 7.961,
+        "cell": "Rate!D8"
+      },
+      "JPY": {
+        "value": 0.06581,
+        "cell": "Rate!E8"
+      },
+      "HKD": {
+        "value": 0.9134,
+        "cell": "Rate!F8"
+      }
+    },
+    "2020-07": {
+      "USD": {
+        "value": 6.9848,
+        "cell": "Rate!C9"
+      },
+      "EUR": {
+        "value": 8.2882,
+        "cell": "Rate!D9"
+      },
+      "JPY": {
+        "value": 0.06673,
+        "cell": "Rate!E9"
+      },
+      "HKD": {
+        "value": 0.9013,
+        "cell": "Rate!F9"
+      }
+    },
+    "2020-08": {
+      "USD": {
+        "value": 6.8605,
+        "cell": "Rate!C10"
+      },
+      "EUR": {
+        "value": 8.1649,
+        "cell": "Rate!D10"
+      },
+      "JPY": {
+        "value": 0.06496,
+        "cell": "Rate!E10"
+      },
+      "HKD": {
+        "value": 0.8852,
+        "cell": "Rate!F10"
+      }
+    },
+    "2020-09": {
+      "USD": {
+        "value": 6.8101,
+        "cell": "Rate!C11"
+      },
+      "EUR": {
+        "value": 7.9941,
+        "cell": "Rate!D11"
+      },
+      "JPY": {
+        "value": 0.06443,
+        "cell": "Rate!E11"
+      },
+      "HKD": {
+        "value": 0.8787,
+        "cell": "Rate!F11"
+      }
+    },
+    "2020-10": {
+      "USD": {
+        "value": 6.7232,
+        "cell": "Rate!C12"
+      },
+      "EUR": {
+        "value": 7.8463,
+        "cell": "Rate!D12"
+      },
+      "JPY": {
+        "value": 0.06427,
+        "cell": "Rate!E12"
+      },
+      "HKD": {
+        "value": 0.8672,
+        "cell": "Rate!F12"
+      }
+    },
+    "2020-11": {
+      "USD": {
+        "value": 6.5782,
+        "cell": "Rate!C13"
+      },
+      "EUR": {
+        "value": 7.8719,
+        "cell": "Rate!D13"
+      },
+      "JPY": {
+        "value": 0.06318,
+        "cell": "Rate!E13"
+      },
+      "HKD": {
+        "value": 0.8487,
+        "cell": "Rate!F13"
+      }
+    },
+    "2020-12": {
+      "USD": {
+        "value": 6.5249,
+        "cell": "Rate!C14"
+      },
+      "EUR": {
+        "value": 8.025,
+        "cell": "Rate!D14"
+      },
+      "JPY": {
+        "value": 0.06324,
+        "cell": "Rate!E14"
+      },
+      "HKD": {
+        "value": 0.8416,
+        "cell": "Rate!F14"
+      }
+    },
+    "2021-01": {
+      "USD": {
+        "value": 6.4709,
+        "cell": "Rate!C15"
+      },
+      "EUR": {
+        "value": 7.8404,
+        "cell": "Rate!D15"
+      },
+      "JPY": {
+        "value": 0.062021,
+        "cell": "Rate!E15"
+      },
+      "HKD": {
+        "value": 0.8346,
+        "cell": "Rate!F15"
+      }
+    },
+    "2021-02": {
+      "USD": {
+        "value": 6.4713,
+        "cell": "Rate!C16"
+      },
+      "EUR": {
+        "value": 7.8686,
+        "cell": "Rate!D16"
+      },
+      "JPY": {
+        "value": 0.060831,
+        "cell": "Rate!E16"
+      },
+      "HKD": {
+        "value": 0.8345,
+        "cell": "Rate!F16"
+      }
+    },
+    "2021-03": {
+      "USD": {
+        "value": 6.5713,
+        "cell": "Rate!C17"
+      },
+      "EUR": {
+        "value": 7.7028,
+        "cell": "Rate!D17"
+      },
+      "JPY": {
+        "value": 0.059554,
+        "cell": "Rate!E17"
+      },
+      "HKD": {
+        "value": 0.8452,
+        "cell": "Rate!F17"
+      }
+    },
+    "2021-04": {
+      "USD": {
+        "value": 6.4672,
+        "cell": "Rate!C18"
+      },
+      "EUR": {
+        "value": 7.8397,
+        "cell": "Rate!D18"
+      },
+      "JPY": {
+        "value": 0.05938,
+        "cell": "Rate!E18"
+      },
+      "HKD": {
+        "value": 0.8331,
+        "cell": "Rate!F18"
+      }
+    },
+    "2021-05": {
+      "USD": {
+        "value": 6.3682,
+        "cell": "Rate!C19"
+      },
+      "EUR": {
+        "value": 7.7616,
+        "cell": "Rate!D19"
+      },
+      "JPY": {
+        "value": 0.057939,
+        "cell": "Rate!E19"
+      },
+      "HKD": {
+        "value": 0.8204,
+        "cell": "Rate!F19"
+      }
+    },
+    "2021-06": {
+      "USD": {
+        "value": 6.4601,
+        "cell": "Rate!C20"
+      },
+      "EUR": {
+        "value": 7.6862,
+        "cell": "Rate!D20"
+      },
+      "JPY": {
+        "value": 0.058428,
+        "cell": "Rate!E20"
+      },
+      "HKD": {
+        "value": 0.8321,
+        "cell": "Rate!F20"
+      }
+    },
+    "2021-07": {
+      "USD": {
+        "value": 6.4602,
+        "cell": "Rate!C21"
+      },
+      "EUR": {
+        "value": 7.6791,
+        "cell": "Rate!D21"
+      },
+      "JPY": {
+        "value": 0.059013,
+        "cell": "Rate!E21"
+      },
+      "HKD": {
+        "value": 0.8312,
+        "cell": "Rate!F21"
+      }
+    },
+    "2021-08": {
+      "USD": {
+        "value": 6.4679,
+        "cell": "Rate!C22"
+      },
+      "EUR": {
+        "value": 7.6303,
+        "cell": "Rate!D22"
+      },
+      "JPY": {
+        "value": 0.058822,
+        "cell": "Rate!E22"
+      },
+      "HKD": {
+        "value": 0.8307,
+        "cell": "Rate!F22"
+      }
+    },
+    "2021-09": {
+      "USD": {
+        "value": 6.4854,
+        "cell": "Rate!C23"
+      },
+      "EUR": {
+        "value": 7.5247,
+        "cell": "Rate!D23"
+      },
+      "JPY": {
+        "value": 0.057929,
+        "cell": "Rate!E23"
+      },
+      "HKD": {
+        "value": 0.8331,
+        "cell": "Rate!F23"
+      }
+    },
+    "2021-10": {
+      "USD": {
+        "value": 6.3907,
+        "cell": "Rate!C24"
+      },
+      "EUR": {
+        "value": 7.4643,
+        "cell": "Rate!D24"
+      },
+      "JPY": {
+        "value": 0.056251,
+        "cell": "Rate!E24"
+      },
+      "HKD": {
+        "value": 0.8216,
+        "cell": "Rate!F24"
+      }
+    },
+    "2021-11": {
+      "USD": {
+        "value": 6.3794,
+        "cell": "Rate!C25"
+      },
+      "EUR": {
+        "value": 7.2063,
+        "cell": "Rate!D25"
+      },
+      "JPY": {
+        "value": 0.056046,
+        "cell": "Rate!E25"
+      },
+      "HKD": {
+        "value": 0.8179,
+        "cell": "Rate!F25"
+      }
+    },
+    "2021-12": {
+      "USD": {
+        "value": 6.3757,
+        "cell": "Rate!C26"
+      },
+      "EUR": {
+        "value": 7.2197,
+        "cell": "Rate!D26"
+      },
+      "JPY": {
+        "value": 0.055415,
+        "cell": "Rate!E26"
+      },
+      "HKD": {
+        "value": 0.8176,
+        "cell": "Rate!F26"
+      }
+    },
+    "2022-01": {
+      "USD": {
+        "value": 6.3746,
+        "cell": "Rate!C27"
+      },
+      "EUR": {
+        "value": 7.103,
+        "cell": "Rate!D27"
+      },
+      "JPY": {
+        "value": 0.055247,
+        "cell": "Rate!E27"
+      },
+      "HKD": {
+        "value": 0.8182,
+        "cell": "Rate!F27"
+      }
+    },
+    "2022-02": {
+      "USD": {
+        "value": 6.3222,
+        "cell": "Rate!C28"
+      },
+      "EUR": {
+        "value": 7.0659,
+        "cell": "Rate!D28"
+      },
+      "JPY": {
+        "value": 0.054663,
+        "cell": "Rate!E28"
+      },
+      "HKD": {
+        "value": 0.8093,
+        "cell": "Rate!F28"
+      }
+    },
+    "2022-03": {
+      "USD": {
+        "value": 6.3482,
+        "cell": "Rate!C29"
+      },
+      "EUR": {
+        "value": 7.0847,
+        "cell": "Rate!D29"
+      },
+      "JPY": {
+        "value": 0.051965,
+        "cell": "Rate!E29"
+      },
+      "HKD": {
+        "value": 0.811,
+        "cell": "Rate!F29"
+      }
+    },
+    "2022-04": {
+      "USD": {
+        "value": 6.6177,
+        "cell": "Rate!C30"
+      },
+      "EUR": {
+        "value": 6.9531,
+        "cell": "Rate!D30"
+      },
+      "JPY": {
+        "value": 0.050616,
+        "cell": "Rate!E30"
+      },
+      "HKD": {
+        "value": 0.8434,
+        "cell": "Rate!F30"
+      }
+    },
+    "2022-05": {
+      "USD": {
+        "value": 6.6607,
+        "cell": "Rate!C31"
+      },
+      "EUR": {
+        "value": 7.1747,
+        "cell": "Rate!D31"
+      },
+      "JPY": {
+        "value": 0.052102,
+        "cell": "Rate!E31"
+      },
+      "HKD": {
+        "value": 0.8487,
+        "cell": "Rate!F31"
+      }
+    },
+    "2022-06": {
+      "USD": {
+        "value": 6.7114,
+        "cell": "Rate!C32"
+      },
+      "EUR": {
+        "value": 7.0084,
+        "cell": "Rate!D32"
+      },
+      "JPY": {
+        "value": 0.049136,
+        "cell": "Rate!E32"
+      },
+      "HKD": {
+        "value": 0.8552,
+        "cell": "Rate!F32"
+      }
+    },
+    "2022-07": {
+      "USD": {
+        "value": 6.7437,
+        "cell": "Rate!C33"
+      },
+      "EUR": {
+        "value": 6.8739,
+        "cell": "Rate!D33"
+      },
+      "JPY": {
+        "value": 0.050154,
+        "cell": "Rate!E33"
+      },
+      "HKD": {
+        "value": 0.8591,
+        "cell": "Rate!F33"
+      }
+    },
+    "2022-08": {
+      "USD": {
+        "value": 6.8906,
+        "cell": "Rate!C34"
+      },
+      "EUR": {
+        "value": 6.9224,
+        "cell": "Rate!D34"
+      },
+      "JPY": {
+        "value": 0.0498,
+        "cell": "Rate!E34"
+      },
+      "HKD": {
+        "value": 0.8779,
+        "cell": "Rate!F34"
+      }
+    },
+    "2022-09": {
+      "USD": {
+        "value": 7.0998,
+        "cell": "Rate!C35"
+      },
+      "EUR": {
+        "value": 6.9892,
+        "cell": "Rate!D35"
+      },
+      "JPY": {
+        "value": 0.049276,
+        "cell": "Rate!E35"
+      },
+      "HKD": {
+        "value": 0.9044,
+        "cell": "Rate!F35"
+      }
+    },
+    "2022-10": {
+      "USD": {
+        "value": 7.1768,
+        "cell": "Rate!C36"
+      },
+      "EUR": {
+        "value": 7.1703,
+        "cell": "Rate!D36"
+      },
+      "JPY": {
+        "value": 0.04875,
+        "cell": "Rate!E36"
+      },
+      "HKD": {
+        "value": 0.9143,
+        "cell": "Rate!F36"
+      }
+    },
+    "2022-11": {
+      "USD": {
+        "value": 7.1769,
+        "cell": "Rate!C37"
+      },
+      "EUR": {
+        "value": 7.4129,
+        "cell": "Rate!D37"
+      },
+      "JPY": {
+        "value": 0.051723,
+        "cell": "Rate!E37"
+      },
+      "HKD": {
+        "value": 0.9187,
+        "cell": "Rate!F37"
+      }
+    },
+    "2022-12": {
+      "USD": {
+        "value": 6.9646,
+        "cell": "Rate!C38"
+      },
+      "EUR": {
+        "value": 7.4229,
+        "cell": "Rate!D38"
+      },
+      "JPY": {
+        "value": 0.052358,
+        "cell": "Rate!E38"
+      },
+      "HKD": {
+        "value": 0.8933,
+        "cell": "Rate!F38"
+      }
+    },
+    "2023-01": {
+      "USD": {
+        "value": 6.7604,
+        "cell": "Rate!C39"
+      },
+      "EUR": {
+        "value": 7.3354,
+        "cell": "Rate!D39"
+      },
+      "JPY": {
+        "value": 0.05184,
+        "cell": "Rate!E39"
+      },
+      "HKD": {
+        "value": 0.8627,
+        "cell": "Rate!F39"
+      }
+    },
+    "2023-02": {
+      "USD": {
+        "value": 6.9519,
+        "cell": "Rate!C40"
+      },
+      "EUR": {
+        "value": 7.3747,
+        "cell": "Rate!D40"
+      },
+      "JPY": {
+        "value": 0.051024,
+        "cell": "Rate!E40"
+      },
+      "HKD": {
+        "value": 0.886,
+        "cell": "Rate!F40"
+      }
+    },
+    "2023-03": {
+      "USD": {
+        "value": 6.8717,
+        "cell": "Rate!C41"
+      },
+      "EUR": {
+        "value": 7.4945,
+        "cell": "Rate!D41"
+      },
+      "JPY": {
+        "value": 0.051693,
+        "cell": "Rate!E41"
+      },
+      "HKD": {
+        "value": 0.8754,
+        "cell": "Rate!F41"
+      }
+    },
+    "2023-04": {
+      "USD": {
+        "value": 6.924,
+        "cell": "Rate!C42"
+      },
+      "EUR": {
+        "value": 7.6361,
+        "cell": "Rate!D42"
+      },
+      "JPY": {
+        "value": 0.051723,
+        "cell": "Rate!E42"
+      },
+      "HKD": {
+        "value": 0.8821,
+        "cell": "Rate!F42"
+      }
+    },
+    "2023-05": {
+      "USD": {
+        "value": 7.0821,
+        "cell": "Rate!C43"
+      },
+      "EUR": {
+        "value": 7.6016,
+        "cell": "Rate!D43"
+      },
+      "JPY": {
+        "value": 0.050652,
+        "cell": "Rate!E43"
+      },
+      "HKD": {
+        "value": 0.9037,
+        "cell": "Rate!F43"
+      }
+    },
+    "2023-06": {
+      "USD": {
+        "value": 7.2258,
+        "cell": "Rate!C44"
+      },
+      "EUR": {
+        "value": 7.8771,
+        "cell": "Rate!D44"
+      },
+      "JPY": {
+        "value": 0.050094,
+        "cell": "Rate!E44"
+      },
+      "HKD": {
+        "value": 0.922,
+        "cell": "Rate!F44"
+      }
+    },
+    "2023-07": {
+      "USD": {
+        "value": 7.1305,
+        "cell": "Rate!C45"
+      },
+      "EUR": {
+        "value": 7.8836,
+        "cell": "Rate!D45"
+      },
+      "JPY": {
+        "value": 0.050802,
+        "cell": "Rate!E45"
+      },
+      "HKD": {
+        "value": 0.9144,
+        "cell": "Rate!F45"
+      },
+      "KRW": {
+        "value": 0.005606,
+        "cell": "Rate!X45"
+      }
+    },
+    "2023-08": {
+      "USD": {
+        "value": 7.1811,
+        "cell": "Rate!C46"
+      },
+      "EUR": {
+        "value": 7.9271,
+        "cell": "Rate!D46"
+      },
+      "JPY": {
+        "value": 0.049847,
+        "cell": "Rate!E46"
+      },
+      "HKD": {
+        "value": 0.9154,
+        "cell": "Rate!F46"
+      },
+      "KRW": {
+        "value": 0.005504,
+        "cell": "Rate!X46"
+      }
+    },
+    "2023-09": {
+      "USD": {
+        "value": 7.1798,
+        "cell": "Rate!C47"
+      },
+      "EUR": {
+        "value": 7.5849,
+        "cell": "Rate!D47"
+      },
+      "JPY": {
+        "value": 0.048398,
+        "cell": "Rate!E47"
+      },
+      "HKD": {
+        "value": 0.9176,
+        "cell": "Rate!F47"
+      },
+      "KRW": {
+        "value": 0.005375,
+        "cell": "Rate!X47"
+      }
+    },
+    "2023-10": {
+      "USD": {
+        "value": 7.1779,
+        "cell": "Rate!C48"
+      },
+      "EUR": {
+        "value": 7.648,
+        "cell": "Rate!D48"
+      },
+      "JPY": {
+        "value": 0.048433,
+        "cell": "Rate!E48"
+      },
+      "HKD": {
+        "value": 0.9178,
+        "cell": "Rate!F48"
+      },
+      "KRW": {
+        "value": 0.005369,
+        "cell": "Rate!X48"
+      },
+      "MYR": {
+        "value": 1.5067,
+        "cell": "Rate!AA48"
+      }
+    },
+    "2023-11": {
+      "USD": {
+        "value": 7.1018,
+        "cell": "Rate!C49"
+      },
+      "EUR": {
+        "value": 7.8045,
+        "cell": "Rate!D49"
+      },
+      "JPY": {
+        "value": 0.048362,
+        "cell": "Rate!E49"
+      },
+      "HKD": {
+        "value": 0.9098,
+        "cell": "Rate!F49"
+      },
+      "KRW": {
+        "value": 0.005517,
+        "cell": "Rate!X49"
+      },
+      "MYR": {
+        "value": 1.5278,
+        "cell": "Rate!AA49"
+      }
+    },
+    "2023-12": {
+      "USD": {
+        "value": 7.0827,
+        "cell": "Rate!C50"
+      },
+      "EUR": {
+        "value": 7.8592,
+        "cell": "Rate!D50"
+      },
+      "JPY": {
+        "value": 0.050213,
+        "cell": "Rate!E50"
+      },
+      "HKD": {
+        "value": 0.9062,
+        "cell": "Rate!F50"
+      },
+      "KRW": {
+        "value": 0.005514,
+        "cell": "Rate!X50"
+      },
+      "MYR": {
+        "value": 1.5415,
+        "cell": "Rate!AA50"
+      }
+    },
+    "2024-01": {
+      "USD": {
+        "value": 7.1039,
+        "cell": "Rate!C51"
+      },
+      "EUR": {
+        "value": 7.7153,
+        "cell": "Rate!D51"
+      },
+      "JPY": {
+        "value": 0.048322,
+        "cell": "Rate!E51"
+      },
+      "HKD": {
+        "value": 0.9088,
+        "cell": "Rate!F51"
+      },
+      "KRW": {
+        "value": 0.005369,
+        "cell": "Rate!X51"
+      },
+      "MYR": {
+        "value": 1.5034,
+        "cell": "Rate!AA51"
+      }
+    },
+    "2024-02": {
+      "USD": {
+        "value": 7.1036,
+        "cell": "Rate!C52"
+      },
+      "EUR": {
+        "value": 7.7249,
+        "cell": "Rate!D52"
+      },
+      "JPY": {
+        "value": 0.047391,
+        "cell": "Rate!E52"
+      },
+      "HKD": {
+        "value": 0.9075,
+        "cell": "Rate!F52"
+      },
+      "KRW": {
+        "value": 0.00536,
+        "cell": "Rate!X52"
+      },
+      "MYR": {
+        "value": 1.4905,
+        "cell": "Rate!AA52"
+      }
+    },
+    "2024-03": {
+      "USD": {
+        "value": 7.095,
+        "cell": "Rate!C53"
+      },
+      "EUR": {
+        "value": 7.6765,
+        "cell": "Rate!D53"
+      },
+      "JPY": {
+        "value": 0.047158,
+        "cell": "Rate!E53"
+      },
+      "HKD": {
+        "value": 0.9066,
+        "cell": "Rate!F53"
+      },
+      "KRW": {
+        "value": 0.005317,
+        "cell": "Rate!X53"
+      },
+      "MYR": {
+        "value": 1.4988,
+        "cell": "Rate!AA53"
+      }
+    },
+    "2024-04": {
+      "USD": {
+        "value": 7.1063,
+        "cell": "Rate!C54"
+      },
+      "EUR": {
+        "value": 7.6458,
+        "cell": "Rate!D54"
+      },
+      "JPY": {
+        "value": 0.04577,
+        "cell": "Rate!E54"
+      },
+      "HKD": {
+        "value": 0.9081,
+        "cell": "Rate!F54"
+      },
+      "KRW": {
+        "value": 0.005218,
+        "cell": "Rate!X54"
+      },
+      "MYR": {
+        "value": 1.489,
+        "cell": "Rate!AA54"
+      }
+    },
+    "2024-05": {
+      "USD": {
+        "value": 7.1088,
+        "cell": "Rate!C55"
+      },
+      "EUR": {
+        "value": 7.7322,
+        "cell": "Rate!D55"
+      },
+      "JPY": {
+        "value": 0.045611,
+        "cell": "Rate!E55"
+      },
+      "HKD": {
+        "value": 0.9093,
+        "cell": "Rate!F55"
+      },
+      "KRW": {
+        "value": 0.005203,
+        "cell": "Rate!X55"
+      },
+      "MYR": {
+        "value": 1.5116,
+        "cell": "Rate!AA55"
+      }
+    },
+    "2024-06": {
+      "USD": {
+        "value": 7.1268,
+        "cell": "Rate!C56"
+      },
+      "EUR": {
+        "value": 7.6617,
+        "cell": "Rate!D56"
+      },
+      "JPY": {
+        "value": 0.044738,
+        "cell": "Rate!E56"
+      },
+      "HKD": {
+        "value": 0.9127,
+        "cell": "Rate!F56"
+      },
+      "KRW": {
+        "value": 0.005189,
+        "cell": "Rate!X56"
+      },
+      "MYR": {
+        "value": 1.5095,
+        "cell": "Rate!AA56"
+      }
+    },
+    "2024-07": {
+      "USD": {
+        "value": 7.1346,
+        "cell": "Rate!C57"
+      },
+      "EUR": {
+        "value": 7.7439,
+        "cell": "Rate!D57"
+      },
+      "JPY": {
+        "value": 0.046958,
+        "cell": "Rate!E57"
+      },
+      "HKD": {
+        "value": 0.9134,
+        "cell": "Rate!F57"
+      },
+      "KRW": {
+        "value": 0.005193,
+        "cell": "Rate!X57"
+      },
+      "MYR": {
+        "value": 1.5448,
+        "cell": "Rate!AA57"
+      }
+    },
+    "2024-08": {
+      "USD": {
+        "value": 7.1124,
+        "cell": "Rate!C58"
+      },
+      "EUR": {
+        "value": 7.8807,
+        "cell": "Rate!D58"
+      },
+      "JPY": {
+        "value": 0.049054,
+        "cell": "Rate!E58"
+      },
+      "HKD": {
+        "value": 0.9122,
+        "cell": "Rate!F58"
+      },
+      "KRW": {
+        "value": 0.005329,
+        "cell": "Rate!X58"
+      },
+      "MYR": {
+        "value": 1.6501,
+        "cell": "Rate!AA58"
+      }
+    },
+    "2024-09": {
+      "USD": {
+        "value": 7.0074,
+        "cell": "Rate!C59"
+      },
+      "EUR": {
+        "value": 7.8267,
+        "cell": "Rate!D59"
+      },
+      "JPY": {
+        "value": 0.049077,
+        "cell": "Rate!E59"
+      },
+      "HKD": {
+        "value": 0.9018,
+        "cell": "Rate!F59"
+      },
+      "KRW": {
+        "value": 0.005348,
+        "cell": "Rate!X59"
+      },
+      "MYR": {
+        "value": 1.7013,
+        "cell": "Rate!AA59"
+      }
+    },
+    "2024-10": {
+      "USD": {
+        "value": 7.125,
+        "cell": "Rate!C60"
+      },
+      "EUR": {
+        "value": 7.7368,
+        "cell": "Rate!D60"
+      },
+      "JPY": {
+        "value": 0.04648,
+        "cell": "Rate!E60"
+      },
+      "HKD": {
+        "value": 0.9167,
+        "cell": "Rate!F60"
+      },
+      "KRW": {
+        "value": 0.005165,
+        "cell": "Rate!X60"
+      },
+      "MYR": {
+        "value": 1.6274,
+        "cell": "Rate!AA60"
+      }
+    },
+    "2024-11": {
+      "USD": {
+        "value": 7.1877,
+        "cell": "Rate!C61"
+      },
+      "EUR": {
+        "value": 7.6087,
+        "cell": "Rate!D61"
+      },
+      "JPY": {
+        "value": 0.04777,
+        "cell": "Rate!E61"
+      },
+      "HKD": {
+        "value": 0.9236,
+        "cell": "Rate!F61"
+      },
+      "KRW": {
+        "value": 0.005178,
+        "cell": "Rate!X61"
+      },
+      "MYR": {
+        "value": 1.6228,
+        "cell": "Rate!AA61"
+      }
+    },
+    "2024-12": {
+      "USD": {
+        "value": 7.1884,
+        "cell": "Rate!C62"
+      },
+      "EUR": {
+        "value": 7.5257,
+        "cell": "Rate!D62"
+      },
+      "JPY": {
+        "value": 0.046233,
+        "cell": "Rate!E62"
+      },
+      "HKD": {
+        "value": 0.926,
+        "cell": "Rate!F62"
+      },
+      "KRW": {
+        "value": 0.004938,
+        "cell": "Rate!X62"
+      },
+      "MYR": {
+        "value": 1.6199,
+        "cell": "Rate!AA62"
+      }
+    },
+    "2025-01": {
+      "USD": {
+        "value": 7.1698,
+        "cell": "Rate!C63"
+      },
+      "EUR": {
+        "value": 7.5301,
+        "cell": "Rate!D63"
+      },
+      "JPY": {
+        "value": 0.046311,
+        "cell": "Rate!E63"
+      },
+      "HKD": {
+        "value": 0.9206,
+        "cell": "Rate!F63"
+      },
+      "KRW": {
+        "value": 0.005047,
+        "cell": "Rate!X63"
+      },
+      "MYR": {
+        "value": 1.6421,
+        "cell": "Rate!AA63"
+      }
+    },
+    "2025-02": {
+      "USD": {
+        "value": 7.1738,
+        "cell": "Rate!C64"
+      },
+      "EUR": {
+        "value": 7.5045,
+        "cell": "Rate!D64"
+      },
+      "JPY": {
+        "value": 0.048336,
+        "cell": "Rate!E64"
+      },
+      "HKD": {
+        "value": 0.9226,
+        "cell": "Rate!F64"
+      },
+      "KRW": {
+        "value": 0.005003,
+        "cell": "Rate!X64"
+      },
+      "MYR": {
+        "value": 1.6179,
+        "cell": "Rate!AA64"
+      }
+    },
+    "2025-03": {
+      "USD": {
+        "value": 7.1782,
+        "cell": "Rate!C65"
+      },
+      "EUR": {
+        "value": 7.7962,
+        "cell": "Rate!D65"
+      },
+      "JPY": {
+        "value": 0.048355,
+        "cell": "Rate!E65"
+      },
+      "HKD": {
+        "value": 0.9228,
+        "cell": "Rate!F65"
+      },
+      "KRW": {
+        "value": 0.00492,
+        "cell": "Rate!X65"
+      },
+      "MYR": {
+        "value": 1.6218,
+        "cell": "Rate!AA65"
+      }
+    },
+    "2025-04": {
+      "USD": {
+        "value": 7.2014,
+        "cell": "Rate!C66"
+      },
+      "EUR": {
+        "value": 8.225,
+        "cell": "Rate!D66"
+      },
+      "JPY": {
+        "value": 0.050872,
+        "cell": "Rate!E66"
+      },
+      "HKD": {
+        "value": 0.9281,
+        "cell": "Rate!F66"
+      },
+      "KRW": {
+        "value": 0.005064,
+        "cell": "Rate!X66"
+      },
+      "MYR": {
+        "value": 1.6712,
+        "cell": "Rate!AA66"
+      }
+    },
+    "2025-05": {
+      "USD": {
+        "value": 7.1848,
+        "cell": "Rate!C67"
+      },
+      "EUR": {
+        "value": 8.162,
+        "cell": "Rate!D67"
+      },
+      "JPY": {
+        "value": 0.049861,
+        "cell": "Rate!E67"
+      },
+      "HKD": {
+        "value": 0.9164,
+        "cell": "Rate!F67"
+      },
+      "KRW": {
+        "value": 0.005234,
+        "cell": "Rate!X67"
+      },
+      "MYR": {
+        "value": 1.6935,
+        "cell": "Rate!AA67"
+      }
+    },
+    "2025-06": {
+      "USD": {
+        "value": 7.1586,
+        "cell": "Rate!C68"
+      },
+      "EUR": {
+        "value": 8.4024,
+        "cell": "Rate!D68"
+      },
+      "JPY": {
+        "value": 0.049594,
+        "cell": "Rate!E68"
+      },
+      "HKD": {
+        "value": 0.912,
+        "cell": "Rate!F68"
+      },
+      "KRW": {
+        "value": 0.005263,
+        "cell": "Rate!X68"
+      },
+      "MYR": {
+        "value": 1.695,
+        "cell": "Rate!AA68"
+      }
+    },
+    "2025-07": {
+      "USD": {
+        "value": 7.1494,
+        "cell": "Rate!C69"
+      },
+      "EUR": {
+        "value": 8.192,
+        "cell": "Rate!D69"
+      },
+      "JPY": {
+        "value": 0.048007,
+        "cell": "Rate!E69"
+      },
+      "HKD": {
+        "value": 0.9108,
+        "cell": "Rate!F69"
+      },
+      "KRW": {
+        "value": 0.00516,
+        "cell": "Rate!X69"
+      },
+      "MYR": {
+        "value": 1.6896,
+        "cell": "Rate!AA69"
+      }
+    },
+    "2025-08": {
+      "USD": {
+        "value": 7.103,
+        "cell": "Rate!C70"
+      },
+      "EUR": {
+        "value": 8.3008,
+        "cell": "Rate!D70"
+      },
+      "JPY": {
+        "value": 0.048428,
+        "cell": "Rate!E70"
+      },
+      "HKD": {
+        "value": 0.9116,
+        "cell": "Rate!F70"
+      },
+      "KRW": {
+        "value": 0.005135,
+        "cell": "Rate!X70"
+      },
+      "MYR": {
+        "value": 1.6892,
+        "cell": "Rate!AA70"
+      }
+    },
+    "2025-09": {
+      "USD": {
+        "value": 7.1055,
+        "cell": "Rate!C71"
+      },
+      "EUR": {
+        "value": 8.3351,
+        "cell": "Rate!D71"
+      },
+      "JPY": {
+        "value": 0.047858,
+        "cell": "Rate!E71"
+      },
+      "HKD": {
+        "value": 0.913,
+        "cell": "Rate!F71"
+      },
+      "KRW": {
+        "value": 0.005078,
+        "cell": "Rate!X71"
+      },
+      "MYR": {
+        "value": 1.6879,
+        "cell": "Rate!AA71"
+      }
+    },
+    "2025-10": {
+      "USD": {
+        "value": 7.088,
+        "cell": "Rate!C72"
+      },
+      "EUR": {
+        "value": 8.2138,
+        "cell": "Rate!D72"
+      },
+      "JPY": {
+        "value": 0.046103,
+        "cell": "Rate!E72"
+      },
+      "HKD": {
+        "value": 0.9123,
+        "cell": "Rate!F72"
+      },
+      "KRW": {
+        "value": 0.00497,
+        "cell": "Rate!X72"
+      },
+      "MYR": {
+        "value": 1.6916,
+        "cell": "Rate!AA72"
+      }
+    },
+    "2025-11": {
+      "USD": {
+        "value": 7.0789,
+        "cell": "Rate!C73"
+      },
+      "EUR": {
+        "value": 8.2078,
+        "cell": "Rate!D73"
+      },
+      "JPY": {
+        "value": 0.045293,
+        "cell": "Rate!E73"
+      },
+      "HKD": {
+        "value": 0.9099,
+        "cell": "Rate!F73"
+      },
+      "KRW": {
+        "value": 0.004836,
+        "cell": "Rate!X73"
+      },
+      "MYR": {
+        "value": 1.714,
+        "cell": "Rate!AA73"
+      }
+    },
+    "2025-12": {
+      "USD": {
+        "value": 7.0288,
+        "cell": "Rate!C74"
+      },
+      "EUR": {
+        "value": 8.2355,
+        "cell": "Rate!D74"
+      },
+      "JPY": {
+        "value": 0.044797,
+        "cell": "Rate!E74"
+      },
+      "HKD": {
+        "value": 0.9032,
+        "cell": "Rate!F74"
+      },
+      "KRW": {
+        "value": 0.00486,
+        "cell": "Rate!X74"
+      },
+      "MYR": {
+        "value": 1.7319,
+        "cell": "Rate!AA74"
+      }
+    },
+    "2026-01": {
+      "USD": {
+        "value": 6.9678,
+        "cell": "Rate!C75"
+      },
+      "EUR": {
+        "value": 8.3244,
+        "cell": "Rate!D75"
+      },
+      "JPY": {
+        "value": 0.045464,
+        "cell": "Rate!E75"
+      },
+      "HKD": {
+        "value": 0.8926,
+        "cell": "Rate!F75"
+      },
+      "KRW": {
+        "value": 0.00485,
+        "cell": "Rate!X75"
+      },
+      "MYR": {
+        "value": 1.7727,
+        "cell": "Rate!AA75"
+      }
+    },
+    "2026-02": {
+      "USD": {
+        "value": 6.9228,
+        "cell": "Rate!C76"
+      },
+      "EUR": {
+        "value": 8.1208,
+        "cell": "Rate!D76"
+      },
+      "JPY": {
+        "value": 0.044216,
+        "cell": "Rate!E76"
+      },
+      "HKD": {
+        "value": 0.8848,
+        "cell": "Rate!F76"
+      },
+      "KRW": {
+        "value": 0.004787,
+        "cell": "Rate!X76"
+      },
+      "MYR": {
+        "value": 1.7733,
+        "cell": "Rate!AA76"
+      }
+    },
+    "2026-03": {
+      "USD": {
+        "value": 6.9194,
+        "cell": "Rate!C77"
+      },
+      "EUR": {
+        "value": 7.9302,
+        "cell": "Rate!D77"
+      },
+      "JPY": {
+        "value": 0.043296,
+        "cell": "Rate!E77"
+      },
+      "HKD": {
+        "value": 0.883,
+        "cell": "Rate!F77"
+      },
+      "KRW": {
+        "value": 0.004547,
+        "cell": "Rate!X77"
+      },
+      "MYR": {
+        "value": 1.7156,
+        "cell": "Rate!AA77"
+      }
+    },
+    "2026-04": {
+      "USD": {
+        "value": 6.8628,
+        "cell": "Rate!C78"
+      },
+      "EUR": {
+        "value": 8.0057,
+        "cell": "Rate!D78"
+      },
+      "JPY": {
+        "value": 0.042812,
+        "cell": "Rate!E78"
+      },
+      "HKD": {
+        "value": 0.87581,
+        "cell": "Rate!F78"
+      },
+      "KRW": {
+        "value": 0.00461,
+        "cell": "Rate!X78"
+      },
+      "MYR": {
+        "value": 1.73265,
+        "cell": "Rate!AA78"
+      }
+    },
+    "2026-05": {
+      "USD": {
+        "value": 6.8176,
+        "cell": "Rate!C79"
+      },
+      "EUR": {
+        "value": 7.916,
+        "cell": "Rate!D79"
+      },
+      "JPY": {
+        "value": 0.04272,
+        "cell": "Rate!E79"
+      },
+      "HKD": {
+        "value": 0.87029,
+        "cell": "Rate!F79"
+      },
+      "KRW": {
+        "value": 0.00453,
+        "cell": "Rate!X79"
+      },
+      "MYR": {
+        "value": 1.71157,
+        "cell": "Rate!AA79"
+      }
+    },
+    "2026-06": {
+      "USD": {
+        "value": 6.8109,
+        "cell": "Rate!C80"
+      },
+      "EUR": {
+        "value": 7.7671,
+        "cell": "Rate!D80"
+      },
+      "JPY": {
+        "value": 0.04205,
+        "cell": "Rate!E80"
+      },
+      "HKD": {
+        "value": 0.86855,
+        "cell": "Rate!F80"
+      },
+      "KRW": {
+        "value": 0.0044,
+        "cell": "Rate!X80"
+      },
+      "MYR": {
+        "value": 1.67342,
+        "cell": "Rate!AA80"
+      }
+    },
+    "2026-07": {
+      "USD": {
+        "value": 6.7894,
+        "cell": "Rate!C81"
+      },
+      "EUR": {
+        "value": 7.7886,
+        "cell": "Rate!D81"
+      },
+      "JPY": {
+        "value": 0.0422,
+        "cell": "Rate!E81"
+      },
+      "HKD": {
+        "value": 0.86559,
+        "cell": "Rate!F81"
+      },
+      "KRW": {
+        "value": 0.00473,
+        "cell": "Rate!X81"
+      },
+      "MYR": {
+        "value": 1.65854,
+        "cell": "Rate!AA81"
+      }
+    },
+    "2026-08": {
+      "USD": {
+        "value": 6.7828,
+        "cell": "Rate!C82"
+      },
+      "EUR": {
+        "value": 7.8344,
+        "cell": "Rate!D82"
+      },
+      "JPY": {
+        "value": 0.04229,
+        "cell": "Rate!E82"
+      },
+      "HKD": {
+        "value": 0.8651,
+        "cell": "Rate!F82"
+      },
+      "KRW": {
+        "value": 0.00489,
+        "cell": "Rate!X82"
+      },
+      "MYR": {
+        "value": 1.67974,
+        "cell": "Rate!AA82"
+      }
+    },
+    "2026-09": {
+      "USD": {
+        "value": 6.7351,
+        "cell": "Rate!C83"
+      },
+      "EUR": {
+        "value": 7.6215,
+        "cell": "Rate!D83"
+      },
+      "JPY": {
+        "value": 0.04273,
+        "cell": "Rate!E83"
+      },
+      "HKD": {
+        "value": 0.85842,
+        "cell": "Rate!F83"
+      },
+      "KRW": {
+        "value": 0.00496,
+        "cell": "Rate!X83"
+      },
+      "MYR": {
+        "value": 1.64826,
+        "cell": "Rate!AA83"
+      }
+    }
+  },
+  "companies": [],
+  "snapshots": {},
+  "rateSource": "FX rate list.xlsx",
+  "rateNotes": [
+    "Rate 标示月份对应上月末汇率。",
+    "A75 年份按相邻月份序列确认为 2026。"
+  ]
+}

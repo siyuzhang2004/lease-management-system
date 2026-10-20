@@ -1,0 +1,58 @@
+{
+  "2026": {
+    "RIGOL TECHNOLOGIES EU GmbH": {
+      "original": {
+        "costOpening": 554853.74,
+        "depOpening": 263237.5,
+        "impOpening": 0.0
+      },
+      "reported": {
+        "costOpening": 4538741.19,
+        "depOpening": 2137135.64,
+        "impOpening": 0.0
+      },
+      "source": "25.使用权资产260630-OK.xlsx / 欧洲!C4、C15、C24",
+      "adjustment": {
+        "costOpening": -30756.78,
+        "depOpening": -30756.79,
+        "impOpening": 0.0
+      }
+    },
+    "ディー・エイチ・エル・ジャパン株式会社": {
+      "original": {
+        "costOpening": 11740394.0,
+        "depOpening": 6848562.0,
+        "impOpening": 0.0
+      },
+      "reported": {
+        "costOpening": 525969.65,
+        "depOpening": 306815.58,
+        "impOpening": 0.0
+      },
+      "source": "25.使用权资产260630-OK.xlsx / 日本!C4、C15、C24",
+      "adjustment": {
+        "costOpening": 35.22,
+        "depOpening": 20.55,
+        "impOpening": 0.0
+      }
+    },
+    "RIGOL KOREA CO,. LTD.": {
+      "original": {
+        "costOpening": 32737203.0,
+        "depOpening": 4092150.0,
+        "impOpening": 0.0
+      },
+      "reported": {
+        "costOpening": 159111.56,
+        "depOpening": 19896.6,
+        "impOpening": 0.0
+      },
+      "source": "25.使用权资产260630-OK.xlsx / 韩国!C4、C15、C24",
+      "adjustment": {
+        "costOpening": 8.75,
+        "depOpening": 8.75,
+        "impOpening": 0.0
+      }
+    }
+  }
+}

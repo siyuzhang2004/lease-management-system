@@ -1,0 +1,42 @@
+{
+  "recordId": "LS-NSDZ-2024-001",
+  "contractId": "LS-NSDZ-2024-001",
+  "revision": 1,
+  "company": "北京普源耐数电子有限公司",
+  "name": "北京市海淀区丰豪东路9号院4号楼101单元2层、3层",
+  "lessor": "北京普源精电科技有限公司",
+  "availableDate": "2024-08-01",
+  "freeStart": "2024-08-01",
+  "freeEnd": "2024-09-30",
+  "start": "2024-08-01",
+  "end": "2029-07-31",
+  "months": 60,
+  "annualRate": 0.0385,
+  "taxRate": 0.09,
+  "area": 394.35,
+  "deposit": 59974.06,
+  "assetAdjustment": 0,
+  "displayMode": "auto",
+  "stages": [
+    {
+      "months": 60,
+      "gross": 0,
+      "paymentPeriod": 0
+    }
+  ],
+  "calendarTerms": {
+    "monthlyGross": 59974.06,
+    "quarterlyGross": 179922.19
+  },
+  "advanced": {
+    "freeEnabled": true,
+    "freePeriods": [
+      {
+        "start": "2024-08-01",
+        "end": "2024-09-30"
+      }
+    ]
+  },
+  "policy": "免租期间纳入确认、计息及折旧；按自然季度预付，完整季度采用合同明示季度金额。年折现率3.85%沿用财务现有计量参数，并非合同约定。付款归入到期所属自然月末计息。",
+  "contractCompany": "北京耐数电子有限公司"
+}

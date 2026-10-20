@@ -1,0 +1,50 @@
+{
+  "recordId": "LS-EU-2025-001",
+  "contractId": "LS-EU-2025-001",
+  "revision": 1,
+  "company": "RIGOL TECHNOLOGIES EU GmbH",
+  "name": "欧洲办公室",
+  "lessor": "待补充",
+  "currency": "EUR",
+  "start": "2025-05-01",
+  "availableDate": "2025-05-01",
+  "end": "2030-05-30",
+  "months": 61,
+  "periodBasis": "calendar-month",
+  "annualRate": 0.0265,
+  "taxRate": 0,
+  "calculationPrecision": 2,
+  "roundingPolicy": "round-total-pv",
+  "assetAdjustment": 0,
+  "area": 0,
+  "deposit": 0,
+  "displayMode": "auto",
+  "rentPhases": [
+    {
+      "months": 1,
+      "gross": 0,
+      "frequency": 1,
+      "timing": "arrears"
+    },
+    {
+      "months": 60,
+      "gross": 348197.4,
+      "frequency": 1,
+      "timing": "arrears"
+    }
+  ],
+  "policy": "经确认按固定租金、不递增、每月期末付款核算；年折现率2.65%按现有核算结果复核。租金为不含税核算金额，服务费用单独核算；末期结清折旧及负债尾差。",
+  "recognizeDuringFreePeriod": true,
+  "freeStart": "2025-05-01",
+  "freeEnd": "2025-05-31",
+  "advanced": {
+    "freeEnabled": true,
+    "freePeriods": [
+      {
+        "start": "2025-05-01",
+        "end": "2025-05-31"
+      }
+    ],
+    "notes": "付款约定为每月第4日前；经确认采用期末付款。出租方、面积及押金待补充。"
+  }
+}

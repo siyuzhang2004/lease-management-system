@@ -101,11 +101,11 @@ async function initContractWorkspace(){
  document.querySelectorAll('[data-top]').forEach(b=>b.onclick=showContractList);
  $('#primary').onclick=()=>openContractEntry();
  try{leaseRecords=JSON.parse(localStorage.getItem(contractStorageKey)||'{}');}catch{leaseRecords={};}
- const seededId=await seedDefaultLease(localStorage,leaseRecords,async()=>await(await calcApi('/api/default-contract')).json());
+ await seedDefaultLease(localStorage,leaseRecords,async()=>await(await calcApi('/api/default-contract')).json());
  try{const response=await calcApi('/api/workspace-contracts');if(response.ok){const localRecords=await response.json(),deleted=JSON.parse(localStorage.getItem('leaseDeletedContracts.v1')||'{}');for(const record of localRecords){if(!leaseRecords[record.id]&&!deleted[record.id])leaseRecords[record.id]=record;}persistContracts();}}catch(error){toast('本地合同加载失败：'+error.message);}
  await normalizeWorkspaceCompanyNames(leaseRecords,async params=>{const response=await calcApi('/api/calculate',params);if(!response.ok)throw new Error((await response.json()).error);return response.json();});persistContracts();
  await initDisclosures();
- const match=location.hash.match(/^#contract\/([^/]+)\/(overview|parameters|calculation)$/);if(routeDisclosures()){}else if(match)await showContractPage(decodeURIComponent(match[1]),match[2]);else if(seededId)await showContractPage(seededId,'calculation');else showContractList();
+ const match=location.hash.match(/^#contract\/([^/]+)\/(overview|parameters|calculation)$/);if(routeDisclosures()){}else if(match)await showContractPage(decodeURIComponent(match[1]),match[2]);else showContractList();
 }
 window.addEventListener('popstate',()=>{const match=location.hash.match(/^#contract\/([^/]+)\/(overview|parameters|calculation)$/);if(routeDisclosures()){}else if(match)showContractPage(decodeURIComponent(match[1]),match[2]);else showContractList();});
 initContractWorkspace().catch(e=>{toast('合同工作台加载失败：'+e.message);});

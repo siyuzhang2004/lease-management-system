@@ -6,6 +6,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 from lease_engine import calculate
+from seed_data import load_disclosure_data, load_workspace_params
 
 BASE = Path(__file__).resolve().parent
 
@@ -30,25 +31,14 @@ class Handler(SimpleHTTPRequestHandler):
         path = urlparse(self.path).path
         if path == '/api/health': return self.respond(200, dict(ok=True))
         if path == '/api/disclosure-international':
-            source=BASE.parent/'analysis'/'disclosures'/'international.json'
-            data={}
-            if source.exists():
-                with open(source,'r',encoding='utf-8') as file:data=json.load(file)
-            history=source.with_name('fixed-history.json')
-            if history.exists():
-                with open(history,'r',encoding='utf-8') as file:data['fixedHistory']=json.load(file)
-            carry=source.with_name('opening-carry.json')
-            if carry.exists():
-                with open(carry,'r',encoding='utf-8') as file:data['openingCarry']=json.load(file)
+            data=load_disclosure_data(BASE,'international.json')
+            data['fixedHistory']=load_disclosure_data(BASE,'fixed-history.json',[])
+            data['openingCarry']=load_disclosure_data(BASE,'opening-carry.json')
             return self.respond(200,data)
         if path == '/api/disclosure-group-reference':
-            source=BASE.parent/'analysis/disclosures/group-reference.json'
-            if not source.exists(): return self.respond(200,{})
-            with open(source,'r',encoding='utf-8') as file:return self.respond(200,json.load(file))
+            return self.respond(200,load_disclosure_data(BASE,'group-reference.json'))
         if path == '/api/disclosure-liability-reference':
-            source=BASE.parent/'analysis/disclosures/liability-reference.json'
-            if not source.exists(): return self.respond(200,{})
-            with open(source,'r',encoding='utf-8') as file:return self.respond(200,json.load(file))
+            return self.respond(200,load_disclosure_data(BASE,'liability-reference.json'))
         if path == '/api/default-contract':
             with open(BASE/'default-contract.json','r',encoding='utf-8') as source:
                 params=json.load(source)
@@ -56,18 +46,13 @@ class Handler(SimpleHTTPRequestHandler):
             return self.respond(200,dict(id=result['params']['recordId'],params=result['params'],result=result))
         if path == '/api/workspace-contracts':
             records=[]
-            for path in sorted((BASE.parent/'analysis'/'workspace-contracts').glob('*.json')):
-                with open(path,'r',encoding='utf-8') as source:
-                    params=json.load(source)
+            for params in load_workspace_params(BASE):
                 result=calculate(params)
                 records.append(dict(id=params['recordId'],params=result['params'],result=result))
             return self.respond(200,records)
         if path == '/api/disclosure-reference':
-            source=BASE.parent/'analysis'/'disclosures'/'reference.json'
-            references={}
-            for source in [source,source.with_name('contract-reference.json')]:
-                if source.exists():
-                    with open(source,'r',encoding='utf-8') as file:references.update(json.load(file))
+            references=load_disclosure_data(BASE,'reference.json')
+            references.update(load_disclosure_data(BASE,'contract-reference.json'))
             return self.respond(200,references)
         if path.startswith('/api/'): return self.respond(404, dict(error='接口不存在。'))
         super().do_GET()
