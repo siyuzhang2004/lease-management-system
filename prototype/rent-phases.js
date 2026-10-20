@@ -32,10 +32,10 @@ function onRentPhaseEdit(e){
 }
 function updateRentPhaseComputed(){
  if(!calcParams||!$('#calcStageCount'))return;const phases=rentPhases();let covered=0;
- phases.forEach((s,i)=>{const start=phaseDate(covered),count=Number(s.months)||0,end=count?calcDateBefore(phaseDate(covered+count)):'';const startLabel=$(`[data-phase-start="${i}"]`);if(startLabel)startLabel.value=start;const endInput=$(`[data-phase="${i}"][data-phase-field=endDate]`);if(endInput&&document.activeElement!==endInput)endInput.value=s.endDate||end;const average=$(`[data-phase-average="${i}"]`);if(average)average.textContent=count&&s.gross!==''?'折合每月 ¥ '+money(Number(s.gross)/count):'请按该阶段约定填写总额';covered+=count;});
+ phases.forEach((s,i)=>{const start=phaseDate(covered),count=Number(s.months)||0,end=count?calcDateBefore(phaseDate(covered+count)):'';const startLabel=$(`[data-phase-start="${i}"]`);if(startLabel)startLabel.value=start;const endInput=$(`[data-phase="${i}"][data-phase-field=endDate]`);if(endInput&&document.activeElement!==endInput)endInput.value=s.endDate||end;const average=$(`[data-phase-average="${i}"]`);if(average)average.textContent=count&&s.gross!==''?'折合每月 '+money(Number(s.gross)/count)+' '+(disclosureCurrencyNames[calcParams.currency||'CNY']||calcParams.currency):'请按该阶段约定填写总额';covered+=count;});
  $('#calcStageCount').textContent=`${phases.length} 个阶段 · 合计 ${covered} 个月 / 合同 ${calcParams.months} 个月${covered===calcParams.months?' · 已覆盖':' · 尚未匹配'}`;
  $('#calcStageCount').classList.toggle('phase-mismatch',covered!==calcParams.months);
- $('#calcStageTotal').textContent='含税租金总额　¥ '+money(phases.reduce((sum,s)=>sum+(Number(s.gross)||0),0));
+ $('#calcStageTotal').textContent='含税租金总额　'+money(phases.reduce((sum,s)=>sum+(Number(s.gross)||0),0))+' '+(disclosureCurrencyNames[calcParams.currency||'CNY']||calcParams.currency);
  if($('#calcDisplayMode'))$('#calcDisplayMode').value=calcParams.displayMode;
 }
 updateCalcStageComputed=updateRentPhaseComputed;

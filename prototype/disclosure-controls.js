@@ -48,10 +48,10 @@ function mountDisclosureCompany(host,{multiple,getValue,onChange,id}){
  picker.root.classList.add('ds-company-picker');
  picker.panel.innerHTML=`<div class="ds-search">${disclosureIcons.search}<input type="search" aria-label="搜索公司" placeholder="搜索公司名称" autocomplete="off"></div>${multiple?'<div class="ds-company-actions"><button type="button" data-company-action="all">全选</button><button type="button" data-company-action="clear">清空</button><span>可多选</span></div>':''}<div class="ds-company-options"></div><div class="ds-company-footer"><span></span><button type="button" data-company-action="done">完成</button></div>`;
  const selected=()=>multiple?getValue():[getValue()];
- const draw=()=>{const names=domesticDisclosureCompanies.filter(n=>n.toLowerCase().includes(search.trim().toLowerCase()));
+ const draw=()=>{const names=disclosureCompanies.filter(n=>n.toLowerCase().includes(search.trim().toLowerCase()));
   picker.panel.querySelector('.ds-company-options').innerHTML=names.length?names.map(name=>multiple?`<label class="ds-company-option"><input type="checkbox" value="${esc(name)}" ${selected().includes(name)?'checked':''}><span>${esc(name)}</span></label>`:`<button type="button" class="ds-company-option ds-single-option" data-company-value="${esc(name)}" aria-pressed="${getValue()===name}"><span>${esc(name)}</span><span class="ds-check">${getValue()===name?'✓':''}</span></button>`).join(''):'<div class="ds-options-empty">无匹配公司</div>';
  };
- picker.sync=()=>{const values=selected(),all=values.length===domesticDisclosureCompanies.length;
+ picker.sync=()=>{const values=selected(),all=values.length===disclosureCompanies.length;
   const text=multiple?(all?'全部公司':values.length===0?'选择公司':values.length===1?values[0]:`已选 ${values.length} 家公司`):values[0];
   picker.trigger.querySelector('.ds-trigger-text').textContent=text;picker.trigger.title=values.join('、');
   picker.panel.querySelector('.ds-company-footer>span').textContent=`已选 ${values.length} 家公司`;
@@ -60,15 +60,15 @@ function mountDisclosureCompany(host,{multiple,getValue,onChange,id}){
  };
  picker.open=()=>{search='';picker.panel.querySelector('input[type=search]').value='';draw();picker.sync();picker.panel.querySelector('input[type=search]').focus();};
  picker.panel.querySelector('input[type=search]').oninput=e=>{search=e.target.value;draw();};
- picker.panel.onchange=e=>{if(e.target.type!=='checkbox')return;const values=new Set(selected());e.target.checked?values.add(e.target.value):values.delete(e.target.value);onChange(domesticDisclosureCompanies.filter(n=>values.has(n)));picker.sync();};
+ picker.panel.onchange=e=>{if(e.target.type!=='checkbox')return;const values=new Set(selected());e.target.checked?values.add(e.target.value):values.delete(e.target.value);onChange(disclosureCompanies.filter(n=>values.has(n)));picker.sync();};
  picker.panel.onclick=e=>{const button=e.target.closest('button');if(!button)return;e.preventDefault();const action=button.dataset.companyAction;
   if(action==='done'){picker.close();picker.trigger.focus();}
-  else if(action==='all'||action==='clear'){onChange(action==='all'?[...domesticDisclosureCompanies]:[]);picker.sync();}
+  else if(action==='all'||action==='clear'){onChange(action==='all'?[...disclosureCompanies]:[]);picker.sync();}
   else if(button.dataset.companyValue){picker.close();onChange(button.dataset.companyValue);picker.sync();}
  };
 }
 function initDisclosureGalleryControls(){
- try{const saved=JSON.parse(localStorage.getItem('leaseDisclosureCompanyFilter.v1')||'null');if(Array.isArray(saved))disclosureGalleryCompanies=domesticDisclosureCompanies.filter(n=>saved.includes(n));}catch{}
+ try{const saved=JSON.parse(localStorage.getItem('leaseDisclosureCompanyFilter.v1')||'null');if(Array.isArray(saved)&&!(saved.length===4&&domesticDisclosureCompanies.every(n=>saved.includes(n))))disclosureGalleryCompanies=disclosureCompanies.filter(n=>saved.includes(n));}catch{}
  mountDisclosureMonth($('#disclosureGalleryMonth'));
  mountDisclosureCompany($('#disclosureCompanyFilter'),{id:'disclosureCompanyMulti',multiple:true,getValue:()=>disclosureGalleryCompanies,onChange:values=>{
   disclosureGalleryCompanies=values;disclosureGalleryPage=1;

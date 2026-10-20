@@ -29,6 +29,10 @@ class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
         path = urlparse(self.path).path
         if path == '/api/health': return self.respond(200, dict(ok=True))
+        if path == '/api/disclosure-international':
+            source=BASE.parent/'analysis'/'disclosures'/'international.json'
+            if not source.exists(): return self.respond(200, {})
+            with open(source,'r',encoding='utf-8') as file:return self.respond(200,json.load(file))
         if path == '/api/default-contract':
             with open(BASE/'default-contract.json','r',encoding='utf-8') as source:
                 params=json.load(source)

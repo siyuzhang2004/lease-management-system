@@ -162,6 +162,11 @@ def expand_rent_phases(p):
 
 def calculate(params):
     p = copy.deepcopy(params)
+    precision = p.get('calculationPrecision', 2)
+    if precision not in (0, 2):
+        raise ValueError('计算精度只能为整数或两位小数。')
+    def truncate_amount(value):
+        return float(Decimal(str(value)).quantize(Decimal('1') if precision == 0 else Decimal('.01'), rounding=ROUND_DOWN))
     p.setdefault('recordId','LEASE-'+hashlib.sha256((str(p.get('company'))+'|'+str(p.get('name'))+'|'+str(p.get('start'))).encode()).hexdigest()[:12])
     p.setdefault('revision',1)
     if not isinstance(p['recordId'],str) or not 1<=len(p['recordId'])<=80 or not isinstance(p['revision'],int) or isinstance(p['revision'],bool) or p['revision']<1:
@@ -188,14 +193,14 @@ def calculate(params):
                        'fromPeriod': len(monthly)+1, 'toPeriod': len(monthly)+count})
         monthly.extend([base] * (count - 1) + [cents(Decimal(str(base)) + Decimal(str(tail)))])
         payments[stage['paymentPeriod']] = cents(Decimal(str(payments[stage['paymentPeriod']])) + Decimal(str(net)))
-    pv = [0.] + [trunc(payments[i] / (1+rate)**i) for i in range(1, n+1)]
+    pv = [0.] + [truncate_amount(payments[i] / (1+rate)**i) for i in range(1, n+1)]
     initial_liability = cents(sum(Decimal(str(v)) for v in pv))
     initial_asset = cents(Decimal(str(initial_liability)) + Decimal(str(payments[0])) + Decimal(str(p.get('assetAdjustment', 0))))
     if initial_asset < 0: raise ValueError('调整后的使用权资产成本不能为负。')
     total_fixed = cents(sum(Decimal(str(s['net'])) for s in stages))
     final_payment = max((i for i, value in enumerate(payments) if i and value), default=0)
     liability, asset, cumulative = initial_liability, initial_asset, payments[0]
-    depreciation = trunc(Decimal(str(initial_asset)) / n)
+    depreciation = truncate_amount(Decimal(str(initial_asset)) / n)
     rows = []
     start = date.fromisoformat(p['start'])
     for i in range(1, n+1):
@@ -203,7 +208,7 @@ def calculate(params):
         # The original table uses 120 rows, with its final row ending on 2033-08-03.
         end = date.fromisoformat(p['end']) if i == n else date(begin.year, begin.month, calendar.monthrange(begin.year, begin.month)[1])
         if begin > end: raise ValueError('起止日期与计算期数不匹配，末期开始日晚于结束日。')
-        interest = cents(Decimal(str(payments[i])) - Decimal(str(liability))) if i == final_payment else trunc(Decimal(str(liability))*Decimal(str(annual))/12)
+        interest = cents(Decimal(str(payments[i])) - Decimal(str(liability))) if i == final_payment else truncate_amount(Decimal(str(liability))*Decimal(str(annual))/12)
         principal = cents(Decimal(str(payments[i])) - Decimal(str(interest)))
         closing_liability = cents(Decimal(str(liability)) - Decimal(str(principal)))
         dep = asset if i == n else depreciation

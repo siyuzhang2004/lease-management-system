@@ -1,4 +1,9 @@
 .disclosure-filters{display:flex;align-items:flex-end;gap:22px;padding:20px 24px;margin-bottom:18px;flex-wrap:wrap}
+.disclosure-currency-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.disclosure-currency-actions button{height:36px;padding:0 16px}
+.disclosure-currency-actions button:disabled{opacity:.55;cursor:not-allowed}
+.disclosure-fx-audit{padding:16px;background:#f5f7fa;border:1px solid #e0e5eb;border-radius:5px;font-size:13px;line-height:1.8}
+.disclosure-status{flex-wrap:wrap}
 .disclosure-filters label{display:flex;flex-direction:column;gap:9px;font-size:14px;font-weight:500;color:#26343e}
 .disclosure-filters select,.disclosure-filters input{height:40px;border:1px solid #bdc6cf;border-radius:4px;background:white;font-size:14px;padding:8px 12px;color:#26343e}
 #disclosureCompany{width:300px}#disclosureMonth{width:180px}#disclosureVersion{width:260px}.disclosure-filters button{height:40px;margin-left:auto;white-space:nowrap}
@@ -34,7 +39,8 @@
 .disclosure-paper-company{text-align:center;font-size:1.2em;white-space:nowrap;margin-bottom:.67em}
 .disclosure-paper-period{text-align:right;font-size:1em;margin-bottom:1.2em}
 .disclosure-mini-head,.disclosure-mini-row{display:grid;grid-template-columns:32% 34% 34%;font-size:1em;line-height:1.2em;padding:0 .4em;border-bottom:1px solid #e7eaed;font-variant-numeric:tabular-nums}
-.disclosure-mini-head>span:not(:first-child),.disclosure-mini-row>span:not(:first-child){text-align:center;white-space:nowrap}
+.disclosure-mini-head>span:not(:first-child){text-align:center;white-space:nowrap}
+.disclosure-mini-row>span:not(:first-child){text-align:right;white-space:nowrap;padding-right:.4em}
 .disclosure-mini-row.is-parent{font-weight:600}
 .disclosure-mini-row.is-total{font-weight:600;background:#fafbf8}
 .disclosure-mini-row.is-child{background:#fafbfd}
