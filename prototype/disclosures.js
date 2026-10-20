@@ -13,11 +13,10 @@ async function initDisclosures(){
  configureDisclosures(international,leaseRecords);disclosureGalleryCompanies=[...disclosureCompanies];
  try{const saved=JSON.parse(localStorage.getItem('leaseDisclosureSelection.v1')||'null');if(saved&&disclosureCompanies.includes(saved.company)&&/^\d{4}-(0[1-9]|1[0-2])$/.test(saved.month))disclosureSelection={...disclosureSelection,...saved};}catch{}
  const view=document.createElement('main');view.id='disclosureView';view.hidden=true;
- view.innerHTML=`<div class="contract-back-bar"><button class="ghost" id="disclosureBackToGallery">← 返回附注列表</button></div><div class="page-heading"><div><div class="breadcrumb">财务管理 / 使用权资产附注</div><h1>使用权资产附注</h1><p>按公司与报告期间生成单体附注，金额可追溯至合同计算表。</p></div><span class="badge yellow">单体 · 原币</span></div><section class="content disclosure-filters"><label>公司<select id="disclosureCompany">${disclosureCompanies.map(name=>`<option>${esc(name)}</option>`).join('')}</select></label><label>报告期末<input type="month" id="disclosureMonth"></label><label>查看版本<select id="disclosureVersion"></select></label><button class="primary" id="saveDisclosureVersion">保存本期版本</button></section><div id="disclosureStatus" role="status"></div><section class="metrics disclosure-metrics" id="disclosureMetrics"></section><section class="content"><div class="section-caption"><div><b id="disclosureTitle"></b><small id="disclosurePeriod"></small></div><div class="disclosure-currency-actions"><span id="disclosureUnit"></span><button class="ghost" id="disclosureTranslate">折算人民币</button></div></div><div class="table-wrap"><table class="disclosure-table"><thead><tr><th>项目</th><th>房屋及建筑物</th><th>合计</th></tr></thead><tbody id="disclosureBody"></tbody></table></div><div class="disclosure-foot" id="disclosureFoot"></div></section><details class="disclosure-notes"><summary>取数口径与来源版本</summary><p>期初为报告年度年初，本期为当年1月1日至报告期末。已确认租赁按初始成本归集原值，逐期折旧按计算表汇总。</p><p>合同到期当期计提完折旧后自动处置，转销原值及累计折旧；以后年度不重复列示处置。单体附注不做集团内抵消。</p><p>已核定历史基准的分位尾差在1元以内按不重大差异忽略，仅影响核对提示，不修改账面金额。</p><p id="disclosureSources"></p></details>`;
+ view.innerHTML=`<div class="page-heading"><div><div class="breadcrumb">财务管理 / 使用权资产附注</div><h1>使用权资产附注</h1><p>按公司与报告期间生成单体附注，金额可追溯至合同计算表。</p></div><span class="badge yellow">单体 · 原币</span></div><section class="content disclosure-filters"><label>公司<select id="disclosureCompany">${disclosureCompanies.map(name=>`<option>${esc(name)}</option>`).join('')}</select></label><label>报告期末<input type="month" id="disclosureMonth"></label><label>查看版本<select id="disclosureVersion"></select></label><button class="primary" id="saveDisclosureVersion">保存本期版本</button></section><div id="disclosureStatus" role="status"></div><section class="metrics disclosure-metrics" id="disclosureMetrics"></section><section class="content"><div class="section-caption"><div><b id="disclosureTitle"></b><small id="disclosurePeriod"></small></div><div class="disclosure-currency-actions"><span id="disclosureUnit"></span><button class="ghost" id="disclosureTranslate">折算人民币</button></div></div><div class="table-wrap"><table class="disclosure-table"><thead><tr><th>项目</th><th>房屋及建筑物</th><th>合计</th></tr></thead><tbody id="disclosureBody"></tbody></table></div><div class="disclosure-foot" id="disclosureFoot"></div></section><details class="disclosure-notes"><summary>取数口径与来源版本</summary><p>期初为报告年度年初，本期为当年1月1日至报告期末。已确认租赁按初始成本归集原值，逐期折旧按计算表汇总。</p><p>合同到期当期计提完折旧后自动处置，转销原值及累计折旧；以后年度不重复列示处置。单体附注不做集团内抵消。</p><p>已核定历史基准的分位尾差在1元以内按不重大差异忽略，仅影响核对提示，不修改账面金额。</p><p id="disclosureSources"></p></details>`;
  document.body.append(view);
  initDisclosureGallery();
  initDisclosureDetailControls();
- $('#disclosureBackToGallery').onclick=()=>showDisclosures(true);
  const button=document.createElement('button');button.dataset.page='disclosures';button.innerHTML='<span>▦</span>使用权资产附注';button.onclick=showDisclosures;document.querySelector('aside [data-page="contracts"]').after(button);
  $('#disclosureCompany').onchange=e=>showDisclosureDetail(e.target.value);
  $('#disclosureMonth').onchange=e=>{disclosureSelection.month=e.target.value;disclosureSelection.version='current';renderDisclosures();};
@@ -28,6 +27,7 @@ async function initDisclosures(){
  try{disclosureReferences=await(await calcApi('/api/disclosure-reference')).json();}catch{disclosureReferences={};}
  await initGroupDisclosures();
  await initLiabilityDisclosures();
+ initDisclosureNavigation();
 }
 function refreshDisclosureCompanies(){
  const allSelected=disclosureGalleryCompanies.length===disclosureCompanies.length;
@@ -37,13 +37,13 @@ function refreshDisclosureCompanies(){
 }
 function showDisclosureDetail(company=disclosureSelection.company,keepVersion=false){
  refreshDisclosureCompanies();
- if($('#returnToGroupDisclosure'))$('#returnToGroupDisclosure').hidden=!groupDisclosureTrace;
  if(!disclosureCompanies.includes(company))return showDisclosures();
  if(!$('#disclosureGalleryView').hidden)disclosureGalleryScroll=window.scrollY;
  if(!keepVersion)disclosureCurrencyView='original';
  disclosureSelection.company=company;if(!keepVersion)disclosureSelection.version='current';
  closeDisclosurePickers();hideLeaseViews();leaseRoute='disclosure-detail';navigateContractUrl('#disclosures/'+encodeURIComponent(company));$('#disclosureView').hidden=false;
  document.querySelectorAll('[data-page]').forEach(button=>button.classList.toggle('selected',button.dataset.page==='disclosures'));
+ syncDisclosureScope('asset','single',company);
  renderDisclosures();window.scrollTo(0,0);
 }
 function renderDisclosures(){
@@ -147,10 +147,11 @@ function showDisclosures(restoreScroll=false){
  refreshDisclosureCompanies();
  closeDisclosurePickers();hideLeaseViews();leaseRoute='disclosures';navigateContractUrl('#disclosures');$('#disclosureGalleryView').hidden=false;
  document.querySelectorAll('[data-page]').forEach(button=>button.classList.toggle('selected',button.dataset.page==='disclosures'));
+ syncDisclosureScope('asset','single');
  renderDisclosureGallery();window.scrollTo(0,restoreScroll===true?disclosureGalleryScroll:0);
 }
 function disclosurePreview(data){
- return `<div class="disclosure-paper" aria-hidden="true"><div class="disclosure-paper-title">使用权资产</div><div class="disclosure-paper-company">${esc(data.company)}</div><div class="disclosure-paper-period">${esc(data.month)} · ${esc(data.currency)}</div><div class="disclosure-mini-head"><span>项目</span><span>房屋及建筑物</span><span>合计</span></div>${visibleDisclosureRows(data).map(([key,label,cell])=>!cell?`<div class="disclosure-mini-section">${label}</div>`:`<div class="disclosure-mini-row ${disclosureParentRows[key]?'is-child':''} ${Object.values(disclosureParentRows).includes(key)?'is-parent':''} ${key.endsWith('Closing')?'is-total':''}"><span>${label}</span><span>${disclosureMoney(data.values[key])}</span><span>${disclosureMoney(data.values[key])}</span></div>`).join('')}<div class="disclosure-paper-footer">单体附注</div></div>`;
+ return `<div class="disclosure-paper" aria-hidden="true"><div class="disclosure-paper-title">使用权资产</div><div class="disclosure-paper-company">${esc(data.company)}</div><div class="disclosure-paper-period">${esc(data.month)} · ${esc(data.currency)}</div><div class="disclosure-mini-head"><span>项目</span><span>房屋及建筑物</span><span>合计</span></div>${visibleDisclosureRows(data).map(([key,label,cell])=>!cell?`<div class="disclosure-mini-section">${label}</div>`:`<div class="disclosure-mini-row ${disclosureParentRows[key]?'is-child':''} ${Object.values(disclosureParentRows).includes(key)?'is-parent':''} ${key.endsWith('Closing')?'is-total':''}"><span>${label}</span><span>${disclosureMoney(data.values[key])}</span><span>${disclosureMoney(data.values[key])}</span></div>`).join('')}<div class="disclosure-paper-footer">${data.basis==='合并'?'合并附注':'单体附注'}</div></div>`;
 }
 function renderDisclosureGallery(){
  $('#disclosureGalleryMonth').value=disclosureSelection.month;
@@ -170,9 +171,18 @@ function renderDisclosureGallery(){
  $('#disclosureGalleryPagination').innerHTML=`<button class="ghost" data-disclosure-page="${disclosureGalleryPage-1}" ${disclosureGalleryPage===1?'disabled':''}>上一页</button><span>${disclosureGalleryPage} / ${pages}</span><button class="ghost" data-disclosure-page="${disclosureGalleryPage+1}" ${disclosureGalleryPage===pages?'disabled':''}>下一页</button>`;
 }
 function routeDisclosures(){
+ const groupMatch=location.hash.match(/^#(disclosures|liabilities)\/group\/([^/]+)\/detail$/);
+ if(groupMatch){
+  const [,prefix,id]=groupMatch;
+  if(!Object.hasOwn(disclosureGroups,id)){showDisclosureGroupGallery(prefix==='disclosures'?'asset':'liability');return true;}
+  prefix==='disclosures'?showGroupDisclosures(id):showLiabilities('group',false,id);return true;
+ }
+ if(location.hash==='#disclosures/group/detail'){showGroupDisclosures();return true;}
+ if(location.hash==='#liabilities/group/detail'){showLiabilities('group');return true;}
+ if(location.hash==='#liabilities/group'){showDisclosureGroupGallery('liability');return true;}
  if(location.hash==='#liabilities'){showLiabilities();return true;}
  if(location.hash.startsWith('#liabilities/')){showLiabilities(decodeURIComponent(location.hash.slice('#liabilities/'.length)));return true;}
- if(location.hash==='#disclosures/group'){showGroupDisclosures();return true;}
+ if(location.hash==='#disclosures/group'){showDisclosureGroupGallery('asset');return true;}
  if(location.hash==='#disclosures'){showDisclosures();return true;}
  if(location.hash.startsWith('#disclosures/')){try{showDisclosureDetail(decodeURIComponent(location.hash.slice('#disclosures/'.length)),true);}catch{showDisclosures();}return true;}
  return false;

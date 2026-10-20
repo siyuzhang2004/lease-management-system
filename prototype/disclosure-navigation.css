@@ -1,0 +1,15 @@
+.has-disclosure-navigation .page-heading{margin-bottom:16px!important}
+.disclosure-scope-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:58px;margin:0 0 18px}
+.disclosure-scope-switch{display:inline-flex!important;align-items:center;gap:4px;padding:5px;border:1px solid #dce1e6;border-radius:9px;background:#e9edf1}
+.disclosure-scope-switch button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-width:146px;height:40px;padding:0 20px;border:1px solid transparent;border-radius:6px;background:transparent;color:#455663;font:500 14px "Microsoft YaHei",sans-serif;cursor:pointer;white-space:nowrap}
+.disclosure-scope-switch button>span{font-size:17px;line-height:1}
+.disclosure-scope-switch button:hover{background:#f6f7f8;color:#22323e}
+.disclosure-scope-switch button.is-active{background:#fffdf1;border-color:#d8c667;color:#695607;box-shadow:0 1px 3px #26343e14;font-weight:600}
+.disclosure-scope-switch button:focus-visible,.disclosure-company-list:focus-visible{outline:2px solid #a68e1c;outline-offset:3px}
+.disclosure-company-list{height:36px;padding:0 14px;border:1px solid #d5dce2;border-radius:5px;background:white;color:#344955;font:13px "Microsoft YaHei",sans-serif;cursor:pointer;white-space:nowrap}
+.disclosure-company-list:hover{border-color:#c1a837;background:#fffdf1}
+.disclosure-company-list[hidden]{display:none}
+.has-disclosure-navigation{padding-top:20px!important}
+.disclosure-group-count{align-self:center;margin-left:auto;color:#4b5964;font-size:13px}
+.disclosure-group-tag{margin-left:auto;border:1px solid #e3d9a8;background:#fffbed;border-radius:4px;color:#75611c;font-size:11px;padding:2px 7px}
+@media(max-width:600px){.disclosure-scope-bar{gap:10px;flex-wrap:wrap}.disclosure-scope-switch button{min-width:112px;padding:0 13px}.disclosure-scope-switch{flex-shrink:0}}

@@ -1,3 +1,4 @@
+let liabilityGroupId='rigol';
 let liabilityData=null,liabilityMode='gallery',liabilityCompany='',liabilityTranslated=false;
 let liabilityCompanies=[],liabilityCompaniesExpanded=false,liabilityEliminationsExpanded=false,liabilityVersion='current',liabilityTrace=null;
 const liabilityLabels={...Object.fromEntries(liabilityRows),currentOpening:'期初一年内到期部分',noncurrentOpening:'期初非流动租赁负债'};
@@ -9,8 +10,8 @@ async function initLiabilityDisclosures(){
  liabilityCompanies=[...disclosureCompanies];
  const nav=document.createElement('button');nav.dataset.page='liabilities';nav.innerHTML='<span>▤</span>租赁负债附注';nav.onclick=()=>showLiabilities();document.querySelector('aside [data-page="disclosures"]').after(nav);
  const view=document.createElement('main');view.id='liabilityView';view.hidden=true;
- view.innerHTML=`<div class="contract-back-bar" id="liabilityBack"><button class="ghost" id="liabilityToGallery">← 返回附注列表</button><button class="ghost" id="liabilityToGroup">返回集团附注</button></div>
- <div class="page-heading"><div><div class="breadcrumb">财务管理 / 租赁负债附注</div><h1 id="liabilityHeading">租赁负债附注</h1></div><button class="primary" id="liabilityOpenGroup">集团合并附注 →</button></div>
+ view.innerHTML=`
+ <div class="page-heading"><div><div class="breadcrumb">财务管理 / 租赁负债附注</div><h1 id="liabilityHeading">租赁负债附注</h1></div></div>
  <section class="content disclosure-filters liability-filters"><label>报告期末<input type="month" id="liabilityMonth"></label><div class="disclosure-control-field" id="liabilityMulti"><span>公司</span><div id="liabilityMultiPicker"></div></div><div class="disclosure-control-field" id="liabilitySingle"><span>公司</span><div id="liabilitySinglePicker"></div></div><label id="liabilityVersionField">查看版本<select id="liabilityVersion"></select></label><button class="ghost" id="liabilitySave">保存本期版本</button></section>
  <div id="liabilityGallery" class="disclosure-gallery-grid"></div>
  <div id="liabilityReport"><div class="disclosure-status" id="liabilityStatus" role="status"></div><section class="metrics disclosure-metrics" id="liabilityMetrics"></section>
@@ -21,9 +22,6 @@ async function initLiabilityDisclosures(){
  mountDisclosureCompany($('#liabilityMultiPicker'),{id:'liabilityCompanyMulti',multiple:true,getValue:()=>liabilityCompanies,onChange:v=>{liabilityCompanies=v;renderLiabilities();}});
  mountDisclosureCompany($('#liabilitySinglePicker'),{id:'liabilityCompanySingle',multiple:false,getValue:()=>liabilityCompany,onChange:v=>showLiabilities(v)});
  $('#liabilityMonth').onchange=e=>{disclosureSelection.month=e.target.value;liabilityVersion='current';renderLiabilities();};
- $('#liabilityToGallery').onclick=()=>showLiabilities();
- $('#liabilityToGroup').onclick=()=>showLiabilities('group');
- $('#liabilityOpenGroup').onclick=()=>showLiabilities('group');
  $('#liabilityTranslate').onclick=()=>{liabilityTranslated=!liabilityTranslated;renderLiabilities();};
  $('#liabilityCompaniesExpand').onclick=()=>{liabilityCompaniesExpanded=!liabilityCompaniesExpanded;renderLiabilities();};
  $('#liabilityEliminationsExpand').onclick=()=>{liabilityEliminationsExpanded=!liabilityEliminationsExpanded;renderLiabilities();};
@@ -38,19 +36,21 @@ async function initLiabilityDisclosures(){
  document.addEventListener('click',e=>{if(e.target.closest('[data-liability-return]')&&liabilityTrace){const t=liabilityTrace;showLiabilities(t.company,true);}});
 }
 function liabilityBackLink(id){return liabilityTrace?.id===id?'<button class="ghost" data-liability-return>← 返回租赁负债附注</button>':'';}
-function showLiabilities(target='',keep=false){
+function showLiabilities(target='',keep=false,groupId='rigol'){
+ if(target==='group'){disclosureGroup(groupId);liabilityGroupId=groupId;liabilityCompaniesExpanded=false;liabilityEliminationsExpanded=false;}
  closeDisclosurePickers();hideLeaseViews();leaseRoute='liabilities';
  liabilityMode=target==='group'?'group':target?'detail':'gallery';
  if(target&&target!=='group')liabilityCompany=target;
  if(!keep){liabilityTranslated=false;liabilityVersion='current';}
- navigateContractUrl('#liabilities'+(target?'/'+encodeURIComponent(target):''));
+ navigateContractUrl(target==='group'?groupDetailRoute('liability',liabilityGroupId):'#liabilities'+(target?'/'+encodeURIComponent(target):''));
  $('#liabilityView').hidden=false;$('#liabilityView').classList.toggle('liability-detail',liabilityMode==='detail');
  document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('selected',b.dataset.page==='liabilities'));
+ syncDisclosureScope('liability',liabilityMode==='group'?'group':'single',liabilityMode==='detail'?liabilityCompany:'',liabilityMode==='group');
  renderLiabilities();window.scrollTo(0,0);
 }
 function liabilityMini(d){
  const v=d.values,mini=(label,n)=>`<div class="liability-mini-row"><span>${label}</span><span>${disclosureMoney(n)}</span></div>`;
- return `<div class="disclosure-paper liability-paper"><div class="disclosure-paper-title">租赁负债</div><div class="disclosure-paper-company">${esc(d.company)}</div><div class="disclosure-paper-period">${esc(d.month)} · ${esc(d.currency)}</div><div class="disclosure-mini-section">一、租赁负债变动</div>${liabilityRows.slice(1,7).filter(([k])=>k!=='fx'||d.translated).map(([k,label])=>mini(label,v[k])).join('')}<div class="disclosure-mini-section">二、列报与重分类</div>${[['租赁负债合计','closing'],['一年内到期部分','current'],['非流动租赁负债','noncurrent']].map(([label,k])=>mini(label,v[k])).join('')}<div class="disclosure-paper-footer">单体附注</div></div>`;
+ return `<div class="disclosure-paper liability-paper"><div class="disclosure-paper-title">租赁负债</div><div class="disclosure-paper-company">${esc(d.company)}</div><div class="disclosure-paper-period">${esc(d.month)} · ${esc(d.currency)}</div><div class="disclosure-mini-section">一、租赁负债变动</div>${liabilityRows.slice(1,7).filter(([k])=>k!=='fx'||d.translated).map(([k,label])=>mini(label,v[k])).join('')}<div class="disclosure-mini-section">二、列报与重分类</div>${[['租赁负债合计','closing'],['一年内到期部分','current'],['非流动租赁负债','noncurrent']].map(([label,k])=>mini(label,v[k])).join('')}<div class="disclosure-paper-footer">${d.basis==='合并'?'合并附注':'单体附注'}</div></div>`;
 }
 function renderLiabilities(){
  const gallery=liabilityMode==='gallery',group=liabilityMode==='group',month=disclosureSelection.month;
@@ -58,11 +58,10 @@ function renderLiabilities(){
  configureDisclosures(disclosureInternational,leaseRecords);
  liabilityCompanies=allSelected?[...disclosureCompanies]:liabilityCompanies.filter(c=>disclosureCompanies.includes(c));
  $('#liabilityMonth').value=month;syncDisclosurePickers();
- $('#liabilityBack').hidden=gallery;$('#liabilityToGroup').hidden=group;
- $('#liabilityOpenGroup').hidden=group;$('#liabilityMulti').hidden=!gallery;$('#liabilitySingle').hidden=gallery||group;
+ $('#liabilityMulti').hidden=!gallery;$('#liabilitySingle').hidden=gallery||group;
  $('#liabilityVersionField').hidden=gallery||group;$('#liabilitySave').hidden=gallery||group;
  $('#liabilityGallery').hidden=!gallery;$('#liabilityReport').hidden=gallery;
- $('#liabilityHeading').textContent=group?'集团租赁负债附注':'租赁负债附注';
+ $('#liabilityHeading').textContent='租赁负债附注';
  localStorage.setItem('leaseDisclosureSelection.v1',JSON.stringify(disclosureSelection));
  if(gallery){
   liabilityData=null;
@@ -78,7 +77,7 @@ function renderLiabilities(){
   $('#liabilityVersion').innerHTML='<option value="current">当前计算表</option>'+saved.map(v=>`<option value="${esc(v.id)}">${esc(v.savedAt)} · 保存版本</option>`).join('');
   $('#liabilityVersion').value=liabilityVersion;$('#liabilitySave').disabled=liabilityVersion!=='current';
   let d;
-  if(group)d=buildGroupLiability(leaseRecords,month);
+  if(group)d=buildGroupLiability(leaseRecords,month,liabilityGroupId);
   else if(liabilityVersion!=='current'){
    const entry=saved.find(v=>v.id===liabilityVersion);
    if(liabilityTranslated&&!entry.translation)throw new Error('此保存版本没有人民币折算结果。');
@@ -89,7 +88,7 @@ function renderLiabilities(){
   }
   liabilityData=d;
   $('#liabilityStatus').className='disclosure-status';
-  $('#liabilityStatus').textContent=group?`${d.companies.length} 家公司 · 耐数电子、耐数信息全额抵消 · 暂不含马来西亚`:`${d.sources.length} 份合同 · ${liabilityVersion==='current'?'随合同参数更新':'已保存版本'}`;
+  $('#liabilityStatus').textContent=group?`${d.companies.length} 家公司 · ${d.eliminations.length?d.eliminations.length+' 家内部租赁全额抵消':'无合并抵消'} · ${d.scope.caption}`:`${d.sources.length} 份合同 · ${liabilityVersion==='current'?'随合同参数更新':'已保存版本'}`;
   $('#liabilityMetrics').innerHTML=[['租赁负债合计','closing'],['一年内到期部分','current'],['非流动租赁负债','noncurrent']].map(([label,key])=>metric(label,disclosureMoney(d.values[key]),d.currency,'','')).join('');
   $('#liabilityTitle').textContent=d.company;$('#liabilityPeriod').textContent=month.slice(0,4)+'-01-01 至 '+month+'月末 · 年初累计';
   $('#liabilityUnit').textContent='金额单位：'+d.currency;
@@ -99,11 +98,12 @@ function renderLiabilities(){
   for(const [id,on,label] of [['liabilityCompaniesExpand',liabilityCompaniesExpanded,'公司明细'],['liabilityEliminationsExpand',liabilityEliminationsExpanded,'抵消明细']]){
    $('#'+id).textContent=(on?'− ':'＋ ')+label;$('#'+id).setAttribute('aria-expanded',String(on));
   }
+  $('#liabilityEliminationsExpand').hidden=false;
   renderLiabilityTable(d,group);
  }catch(e){
   liabilityData=null;$('#liabilityStatus').className='disclosure-status review';$('#liabilityStatus').textContent=e.message;
   $('#liabilityMetrics').innerHTML='';$('#liabilityTable').innerHTML='';
-  $('#liabilityTitle').textContent=group?'普源集团':liabilityCompany;$('#liabilityPeriod').textContent=month;
+  $('#liabilityTitle').textContent=group?disclosureGroup(liabilityGroupId).name:liabilityCompany;$('#liabilityPeriod').textContent=month;
  }
 }
 function renderLiabilityTable(d,group){
@@ -120,12 +120,12 @@ function renderLiabilityTable(d,group){
  }
  const companyHeaders=liabilityCompaniesExpanded?d.companies.map(c=>`<th title="${esc(c.company)}">${esc(c.label)}</th>`).join(''):'';
  const elimHeaders=liabilityEliminationsExpanded?d.eliminations.map(c=>`<th>${esc(c.label)}<small>抵消借方</small></th><th>${esc(c.label)}<small>抵消贷方</small></th>`).join(''):'';
- const count=5+(liabilityCompaniesExpanded?d.companies.length:0)+(liabilityEliminationsExpanded?d.eliminations.length*2:0);
+ const count=3+(liabilityCompaniesExpanded?d.companies.length:0)+(liabilityEliminationsExpanded?2+d.eliminations.length*2:0);
  const display=[...rows,['openingClassification','三、期初列报'],['currentOpening','一年内到期部分'],['noncurrentOpening','非流动租赁负债']];
- table.innerHTML=`<thead><tr><th rowspan="2" class="group-row-title">项目</th><th colspan="${1+(liabilityCompaniesExpanded?d.companies.length:0)}">公司汇总</th><th colspan="${2+(liabilityEliminationsExpanded?d.eliminations.length*2:0)}">合并抵消</th><th rowspan="2" class="group-final">合并金额</th></tr><tr>${companyHeaders}<th>抵消前合计</th>${elimHeaders}<th>抵消借方</th><th>抵消贷方</th></tr></thead><tbody>`+display.map(([key,label])=>{
+ table.innerHTML=`<thead><tr><th rowspan="2" class="group-row-title">项目</th><th colspan="${1+(liabilityCompaniesExpanded?d.companies.length:0)}">公司汇总</th>${liabilityEliminationsExpanded?`<th colspan="${2+(liabilityEliminationsExpanded?d.eliminations.length*2:0)}">合并抵消</th>`:""}<th rowspan="2" class="group-final">合并金额</th></tr><tr>${companyHeaders}<th>抵消前合计</th>${liabilityEliminationsExpanded?`${elimHeaders}<th>抵消借方</th><th>抵消贷方</th>`:""}</tr></thead><tbody>`+display.map(([key,label])=>{
   if(['movement','classification','openingClassification'].includes(key))return `<tr class="group-section"><th colspan="${count}">${label}</th></tr>`;
   const k=key==='total'?'closing':key;
-  return `<tr class="${['closing','noncurrent','noncurrentOpening'].includes(k)?'group-total':''}"><th class="group-row-title">${label}</th>${liabilityCompaniesExpanded?d.companies.map(c=>`<td>${liabilityAmount(k,c.report.values[k],c.company)}</td>`).join(''):''}<td>${liabilityAmount(k,d.before[k])}</td>${liabilityEliminationsExpanded?d.eliminations.map(c=>`<td class="group-elimination">${liabilityAmount(k,liabilityEliminationSides(c.report.values[k],k).debit)}</td><td class="group-elimination">${liabilityAmount(k,liabilityEliminationSides(c.report.values[k],k).credit)}</td>`).join(''):''}<td class="group-elimination">${liabilityAmount(k,d.debit[k])}</td><td class="group-elimination">${liabilityAmount(k,d.credit[k])}</td><td class="group-final">${liabilityAmount(k,d.values[k])}</td></tr>`;
+  return `<tr class="${['closing','noncurrent','noncurrentOpening'].includes(k)?'group-total':''}"><th class="group-row-title">${label}</th>${liabilityCompaniesExpanded?d.companies.map(c=>`<td>${liabilityAmount(k,c.report.values[k],c.company)}</td>`).join(''):''}<td>${liabilityAmount(k,d.before[k])}</td>${liabilityEliminationsExpanded?d.eliminations.map(c=>`<td class="group-elimination">${liabilityAmount(k,liabilityEliminationSides(c.report.values[k],k).debit)}</td><td class="group-elimination">${liabilityAmount(k,liabilityEliminationSides(c.report.values[k],k).credit)}</td>`).join(''):''}${liabilityEliminationsExpanded?`<td class="group-elimination">${liabilityAmount(k,d.debit[k])}</td><td class="group-elimination">${liabilityAmount(k,d.credit[k])}</td>`:""}<td class="group-final">${liabilityAmount(k,d.values[k])}</td></tr>`;
  }).join('')+'</tbody>';
 }
 function liabilityFormulaHTML(d,key){
@@ -139,7 +139,7 @@ function openLiabilitySources(key){
  const d=liabilityData;
  if(d.basis==='合并'){
   const increase=liabilityBalanceSign(key)===1;
-  openDrawer(liabilityLabels[key]+' · 合并来源',`<div class="detail-banner"><strong>普源集团 · ${d.month}</strong><small>人民币元 · 暂不含马来西亚</small></div><section class="disclosure-formula"><b>${increase?'抵消前合计＋抵消借方－抵消贷方':'抵消前合计－抵消借方＋抵消贷方'}</b><p>${money(d.before[key])} ${increase?'+':'−'} ${money(d.debit[key])} ${increase?'−':'+'} ${money(d.credit[key])} = ${money(d.values[key])}</p></section>${liabilityFormulaHTML(d,key)}<div class="group-trace-table"><table><thead><tr><th>公司</th><th>单体金额</th><th>抵消影响</th><th>合并金额</th></tr></thead><tbody>${d.companies.map(c=>`<tr><th><button class="link" data-liability-open="${esc(c.company)}">${esc(c.label)} ↗</button></th><td>${disclosureMoney(c.report.values[key])}</td><td>${disclosureMoney(c.eliminated?-c.report.values[key]:0)}</td><td>${disclosureMoney(c.eliminated?0:c.report.values[key])}</td></tr>`).join('')}</tbody></table></div>`);
+  openDrawer(liabilityLabels[key]+' · 合并来源',`<div class="detail-banner"><strong>${esc(d.company)} · ${d.month}</strong><small>人民币元 · ${esc(d.scope.caption)}</small></div><section class="disclosure-formula"><b>${increase?'抵消前合计＋抵消借方－抵消贷方':'抵消前合计－抵消借方＋抵消贷方'}</b><p>${money(d.before[key])} ${increase?'+':'−'} ${money(d.debit[key])} ${increase?'−':'+'} ${money(d.credit[key])} = ${money(d.values[key])}</p></section>${liabilityFormulaHTML(d,key)}<div class="group-trace-table"><table><thead><tr><th>公司</th><th>单体金额</th><th>抵消影响</th><th>合并金额</th></tr></thead><tbody>${d.companies.map(c=>`<tr><th><button class="link" data-liability-open="${esc(c.company)}">${esc(c.label)} ↗</button></th><td>${disclosureMoney(c.report.values[key])}</td><td>${disclosureMoney(c.eliminated?-c.report.values[key]:0)}</td><td>${disclosureMoney(c.eliminated?0:c.report.values[key])}</td></tr>`).join('')}</tbody></table></div>`);
   $('#drawerBody').querySelectorAll('[data-liability-open]').forEach(b=>b.onclick=()=>showLiabilities(b.dataset.liabilityOpen));
   return;
  }

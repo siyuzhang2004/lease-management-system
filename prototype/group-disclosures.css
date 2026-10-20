@@ -1,8 +1,5 @@
 #groupDisclosureView{padding-top:22px;max-width:none}
 .group-filters{display:flex;align-items:center;gap:28px;padding:18px 22px;margin-bottom:16px}
-.group-view-tabs{display:flex;gap:4px;padding:4px;background:#f2f4f6;border-radius:7px}
-.group-view-tabs button{height:36px;margin:0!important;padding:0 18px;border:0;border-radius:4px}
-.group-view-tabs .ghost{background:transparent}
 .group-scope{margin-left:auto;display:flex;flex-direction:column;gap:6px;color:#26343e}
 .group-scope span{font-size:12px;color:#576673}
 #groupDisclosureView .metrics{margin-bottom:18px;gap:14px}

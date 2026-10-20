@@ -60,14 +60,13 @@ function translateLiabilityDisclosure(original,rates=null){
  const values=Object.fromEntries(liabilityKeys.map(k=>[k,sources.reduce((n,s)=>n+disclosureMinor(s.values[k]),0)/100]));
  return {...original,values,sources,rates:JSON.parse(JSON.stringify(rates)),originalCurrency:original.currencyCode,currencyCode:'CNY',currency:'人民币元',translated:true};
 }
-function buildGroupLiability(records,month){
- const names=[...new Set(Object.values(records).map(r=>r.params.company))].filter(n=>!groupExcludedCompanies.includes(n));
- const order=Object.keys(groupCompanyLabels);names.sort((a,b)=>order.indexOf(a)-order.indexOf(b));
+function buildGroupLiability(records,month,groupId='rigol'){
+ const scope=disclosureGroup(groupId),names=groupMembers(records,scope);
  const companies=names.map(company=>{
   let report;
   try{report=translateLiabilityDisclosure(buildLiabilityDisclosure(records,company,month));}
   catch(e){throw new Error((groupCompanyLabels[company]||company)+'：'+e.message);}
-  return {company,label:groupCompanyLabels[company]||company,report,eliminated:groupEliminatedCompanies.includes(company)};
+  return {company,label:groupCompanyLabels[company]||company,report,eliminated:scope.eliminated.includes(company)};
  });
  const eliminations=companies.filter(c=>c.eliminated);
  const before={},debit={},credit={},values={};
@@ -79,7 +78,7 @@ function buildGroupLiability(records,month){
   credit[key]=adjustments.reduce((n,v)=>n+disclosureMinor(v.credit),0)/100;
   values[key]=liabilityRound(before[key]+liabilityBalanceSign(key)*(debit[key]-credit[key]));
  }
- return {company:'普源集团',month,currencyCode:'CNY',currency:'人民币元',translated:true,basis:'合并',companies,eliminations,before,debit,credit,values};
+ return {company:scope.name,groupId,scope,month,currencyCode:'CNY',currency:'人民币元',translated:true,basis:'合并',companies,eliminations,before,debit,credit,values};
 }
 function liabilityFormula(data,key,opening=false){
  const v=data.values;
