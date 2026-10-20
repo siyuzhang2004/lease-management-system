@@ -1,7 +1,7 @@
 /* Single-entity disclosures are derived from versioned contract schedules. */
 const domesticDisclosureCompanies=['西安普源精电科技有限公司','深圳普源精电科技有限公司','北京普源耐数电子有限公司','北京耐数信息有限公司'];
 const disclosureRows=[
- ['原值','一、账面原值'],['costOpening','1.期初余额',4],['costIncrease','2.本期增加金额',5],['newLease','其中：新增租赁',6],['acquisition','企业并购',7],['costDecrease','3.本期减少金额',9],['disposal','其中：处置',10],['costClosing','4.期末余额',13],
+ ['原值','一、账面原值'],['costOpening','1.期初余额',4],['costIncrease','2.本期增加金额',5],['newLease','其中：新增租赁',6],['acquisition','其中：企业并购',7],['costDecrease','3.本期减少金额',9],['disposal','其中：处置',10],['costClosing','4.期末余额',13],
  ['折旧','二、累计折旧'],['depOpening','1.期初余额',15],['depIncrease','2.本期增加金额',16],['depCharge','其中：本期计提',17],['depDecrease','3.本期减少金额',18],['depDisposal','其中：处置',19],['depClosing','4.期末余额',22],
  ['减值','三、减值准备'],['impOpening','1.期初余额',24],['impIncrease','2.本期增加金额',25],['impCharge','其中：本期计提',26],['impDecrease','3.本期减少金额',27],['impDisposal','其中：处置',28],['impClosing','4.期末余额',29],
  ['净值','四、账面价值'],['netClosing','1.期末账面价值',31],['netOpening','2.期初账面价值',32],
