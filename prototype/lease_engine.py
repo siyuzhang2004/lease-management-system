@@ -101,8 +101,11 @@ def validate(p):
         expected_end=shift_month(p['start'], n)-timedelta(days=1)
         if end != expected_end: errors.append(f'租赁结束日与阶段月数不一致；按当前起算日及{n}期，应为{expected_end.isoformat()}。')
     try:
-        if p.get('freeEnd') and date.fromisoformat(p['freeEnd']) >= date.fromisoformat(p['start']):
+        if p.get('freeEnd') and not p.get('recognizeDuringFreePeriod') and date.fromisoformat(p['freeEnd']) >= date.fromisoformat(p['start']):
             errors.append('公司简便口径下，租赁开始日须晚于免租期结束日。')
+        if p.get('recognizeDuringFreePeriod') and p.get('freeEnd'):
+            if not p.get('freeStart') or not p['start'] <= p['freeStart'] <= p['freeEnd'] <= p['end']:
+                errors.append('纳入确认期间的免租期须完整填写并位于租赁期内。')
         if p.get('availableDate') and date.fromisoformat(p['availableDate']) > date.fromisoformat(p['start']):
             errors.append('取得资产控制权日不得晚于租赁开始日。')
     except (ValueError, KeyError): errors.append('取得资产控制权日或免租期结束日格式不正确。')
@@ -167,6 +170,10 @@ def calculate(params):
         raise ValueError('计算精度只能为整数或两位小数。')
     def truncate_amount(value):
         return float(Decimal(str(value)).quantize(Decimal('1') if precision == 0 else Decimal('.01'), rounding=ROUND_DOWN))
+    rounding = p.get('roundingPolicy', 'truncate-payments')
+    if rounding not in ('truncate-payments', 'round-total-pv'):
+        raise ValueError('请选择有效的金额舍入口径。')
+    amount_round = cents if rounding == 'round-total-pv' else truncate_amount
     p.setdefault('recordId','LEASE-'+hashlib.sha256((str(p.get('company'))+'|'+str(p.get('name'))+'|'+str(p.get('start'))).encode()).hexdigest()[:12])
     p.setdefault('revision',1)
     if not isinstance(p['recordId'],str) or not 1<=len(p['recordId'])<=80 or not isinstance(p['revision'],int) or isinstance(p['revision'],bool) or p['revision']<1:
@@ -193,14 +200,21 @@ def calculate(params):
                        'fromPeriod': len(monthly)+1, 'toPeriod': len(monthly)+count})
         monthly.extend([base] * (count - 1) + [cents(Decimal(str(base)) + Decimal(str(tail)))])
         payments[stage['paymentPeriod']] = cents(Decimal(str(payments[stage['paymentPeriod']])) + Decimal(str(net)))
-    pv = [0.] + [truncate_amount(payments[i] / (1+rate)**i) for i in range(1, n+1)]
+    if p.get('recognizeDuringFreePeriod') and p.get('freeEnd'):
+        for i, amount in enumerate(monthly):
+            begin = shift_month(p['start'], i).isoformat()
+            if p['freeStart'] <= begin <= p['freeEnd'] and amount:
+                raise ValueError('免租月份的固定租金须为零，请同步调整租金阶段。')
+    pv = [0.] + [amount_round(payments[i] / (1+rate)**i) for i in range(1, n+1)]
     initial_liability = cents(sum(Decimal(str(v)) for v in pv))
+    if rounding == 'round-total-pv':
+        initial_liability = cents(sum(Decimal(str(payments[i])) / (1+Decimal(str(annual))/12)**i for i in range(1,n+1)))
     initial_asset = cents(Decimal(str(initial_liability)) + Decimal(str(payments[0])) + Decimal(str(p.get('assetAdjustment', 0))))
     if initial_asset < 0: raise ValueError('调整后的使用权资产成本不能为负。')
     total_fixed = cents(sum(Decimal(str(s['net'])) for s in stages))
     final_payment = max((i for i, value in enumerate(payments) if i and value), default=0)
     liability, asset, cumulative = initial_liability, initial_asset, payments[0]
-    depreciation = truncate_amount(Decimal(str(initial_asset)) / n)
+    depreciation = amount_round(Decimal(str(initial_asset)) / n)
     rows = []
     start = date.fromisoformat(p['start'])
     for i in range(1, n+1):
@@ -208,7 +222,7 @@ def calculate(params):
         # The original table uses 120 rows, with its final row ending on 2033-08-03.
         end = date.fromisoformat(p['end']) if i == n else date(begin.year, begin.month, calendar.monthrange(begin.year, begin.month)[1])
         if begin > end: raise ValueError('起止日期与计算期数不匹配，末期开始日晚于结束日。')
-        interest = cents(Decimal(str(payments[i])) - Decimal(str(liability))) if i == final_payment else truncate_amount(Decimal(str(liability))*Decimal(str(annual))/12)
+        interest = cents(Decimal(str(payments[i])) - Decimal(str(liability))) if i == final_payment else amount_round(Decimal(str(liability))*Decimal(str(annual))/12)
         principal = cents(Decimal(str(payments[i])) - Decimal(str(interest)))
         closing_liability = cents(Decimal(str(liability)) - Decimal(str(principal)))
         dep = asset if i == n else depreciation

@@ -35,12 +35,12 @@ vm.runInContext(fs.readFileSync('prototype/disclosure-model.js','utf8'),ctx);
  }
  assert.throws(()=>ctx.translateDisclosure(ctx.buildDisclosure(records,jp.params.company,'2026-10')),/2026-10/);
  // Reference-only coverage; these companies are not configured in the live system.
- ctx.configureDisclosures({...payload,snapshots:references,companies:[{name:'欧洲',currency:'EUR'}]},records);
- const historic=ctx.buildDisclosure(records,'欧洲','2026-06');
+ ctx.configureDisclosures({...payload,snapshots:references,companies:[{name:'RIGOL TECHNOLOGIES EU GmbH',currency:'EUR'}]},records);
+ const historic=ctx.buildDisclosure(records,'RIGOL TECHNOLOGIES EU GmbH','2026-06');
  const eur=ctx.translateDisclosure(historic);
- assert.equal(eur.values.costOpening,Math.round(references['欧洲']['2026-06'].translatedOpening.costOpening*100)/100);
+ assert.equal(eur.values.costOpening,Math.round(references['RIGOL TECHNOLOGIES EU GmbH']['2026-06'].translatedOpening.costOpening*100)/100);
  assert.equal(eur.rates.average,8.0107);
- assert.throws(()=>ctx.buildDisclosure(records,'欧洲','2026-10'),/尚无本期/);
+ assert.throws(()=>ctx.buildDisclosure(records,'RIGOL TECHNOLOGIES EU GmbH','2026-10'),/尚无本期/);
  const clone=JSON.parse(JSON.stringify(jp));clone.id='second';clone.params.recordId='second';clone.result.params.recordId='second';
  const both=ctx.buildDisclosure({...records,second:clone},jp.params.company,'2026-06');
  assert.equal(both.sources.length,2);assert.equal(both.values.netClosing,raw.values.netClosing*2);

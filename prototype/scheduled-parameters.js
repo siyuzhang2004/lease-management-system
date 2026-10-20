@@ -9,7 +9,7 @@ function scheduleGroups(schedule){
 }
 function scheduleDetailRow(schedule,r,i){const pay=schedule.payments.find(x=>x.rentIndices.includes(i));return `<tr><td>${esc(r.start.slice(0,7))}</td><td>${esc(r.start)} 至 ${esc(r.end)}</td><td><input type="number" min="0" step="0.01" data-schedule-rent="${i}" aria-label="${r.start.slice(0,7)}不含税租金" value="${r.net}"></td><td><input type="number" min="0" max="${calcParams.months}" step="1" data-schedule-payment="${schedule.payments.indexOf(pay)}" aria-label="${r.start.slice(0,7)}付款期次" value="${pay.period}"></td></tr>`;}
 renderRentPhases=function(){
- if(!calcParams.paymentSchedule){renderRegularPhases();$('#calculationView .calc-rent h2').textContent='02　分阶段固定租金';$('.calc-policy b').textContent='公司简便口径 · 初始装修免租期不纳入确认及折旧';return;}
+ if(!calcParams.paymentSchedule){renderRegularPhases();$('#calculationView .calc-rent h2').textContent='02　分阶段固定租金';return;}
  const schedule=calcParams.paymentSchedule,view=$('#calculationView');
  view.dataset.rentLayout='schedule';
  view.querySelector('.calc-rent h2').textContent='02　租金所属期间与付款安排';

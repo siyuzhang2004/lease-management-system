@@ -26,7 +26,7 @@ function leaseSelect(id,label,options,hint=''){
 function leaseText(id,label,hint='',placeholder='请输入判断依据或合同条款'){
  return `<div class="lf-field lf-full"><label for="lf-${id}">${label}</label><textarea id="lf-${id}" data-lease="${id}" rows="2" placeholder="${placeholder}"></textarea><small>${hint}</small></div>`;
 }
-function leaseToggle(id,title,sub){return `<label class="lf-toggle"><span><b>${title}</b><small>${sub}</small></span><input type="checkbox" id="lf-${id}" data-lease="${id}"><i></i></label>`;}
+function leaseToggle(id,title,sub){return `<label class="lf-toggle"><span><b>${title}</b></span><input type="checkbox" role="switch" aria-label="${title}" id="lf-${id}" data-lease="${id}"><i aria-hidden="true"></i><small>${sub}</small></label>`;}
 function leaseGroup(n,title,sub,body){return `<section class="lf-card"><div class="lf-card-head"><span class="lf-number">${n}</span><div><h2>${title}</h2><p>${sub}</p></div></div>${body}</section>`;}
 function decision(id,label,options,hint=''){return leaseSelect(id,label,options,hint);}
 function leaseAdvancedMarkup(){return `<div class="lf-advanced-note">仅在合同包含相关条款时启用；收起高级参数会保留已填写内容。</div>

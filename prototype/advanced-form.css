@@ -29,6 +29,26 @@
 }
 #calculationView #contractAdvancedBody .lf-toggle b{font-weight:600}
 #calculationView #contractAdvancedBody .lf-toggle small{margin-top:4px}
+/* Keep the native input accessible without letting disabled-input styles expose it. */
+.lf-toggle>input[type=checkbox],
+#calculationView #contractAdvancedBody .lf-toggle>input[type=checkbox]{
+ appearance:none;position:absolute;width:1px;height:1px;min-height:0;
+ padding:0;margin:0;border:0;clip-path:inset(50%);overflow:hidden;white-space:nowrap;
+}
+.lf-toggle:has(>small),
+#calculationView #contractAdvancedBody .lf-toggle:has(>small){
+ display:grid;grid-template-columns:max-content 44px minmax(0,1fr);
+ align-items:center;justify-content:start;gap:4px 12px;
+}
+.lf-toggle>small,
+#calculationView #contractAdvancedBody .lf-toggle>small{grid-column:1/-1;margin:0}
+.lf-toggle>i{width:44px;height:24px;border-radius:12px;background:#a9b3be}
+.lf-toggle>i::before{width:18px;height:18px;left:3px;top:3px}
+.lf-toggle>input:checked+i::before{left:23px}
+.lf-toggle:has(>input:disabled){cursor:not-allowed}
+.lf-toggle>input:disabled+i{background:#cbd2da}
+.lf-toggle>input:disabled:checked+i{background:#b5aa6b}
+.lf-toggle>input:disabled+i::before{box-shadow:none}
 #calculationView #contractAdvancedBody [data-financial-show]:not(.lf-grid),
 #calculationView #contractAdvancedBody .lf-grid[data-financial-show],
 #calculationView #contractAdvancedBody .lf-initial-section>.lf-grid[data-financial-show]{

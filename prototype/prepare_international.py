@@ -10,9 +10,11 @@ from lease_engine import calculate
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / 'analysis' / 'disclosures'
-COMPANIES = {'欧洲': ('欧洲', 'EUR'), '美国': ('美国', 'USD'),
-             '日本': ('リゴルジャパン株式会社', 'JPY'), '香港': ('香港', 'HKD'),
-             '韩国': ('韩国', 'KRW'), '马来西亚': ('马来西亚', 'MYR')}
+COMPANIES = {'欧洲': ('RIGOL TECHNOLOGIES EU GmbH', 'EUR'),
+             '美国': ('RIGOL TECHNOLOGIES, USA INC.', 'USD'),
+             '日本': ('ディー・エイチ・エル・ジャパン株式会社', 'JPY'), '香港': ('香港', 'HKD'),
+             '韩国': ('RIGOL KOREA CO,. LTD.', 'KRW'),
+             '马来西亚': ('RIGOL TECHNOLOGIES（MALAYSIA）SDN.BHD.', 'MYR')}
 KEYS = {'costOpening':4,'costIncrease':5,'newLease':6,'acquisition':7,
         'costDecrease':9,'disposal':10,'costClosing':13,'depOpening':15,
         'depIncrease':16,'depCharge':17,'depDecrease':18,'depDisposal':19,
@@ -65,7 +67,7 @@ def main():
          'rateNotes':['Rate 标示月份对应上月末汇率。','A75 年份按相邻月份序列确认为 2026。']})
     jp = read(ROOT/'日本公司租赁'/'JP Lease Calculation 2024 .11.xlsx')['JP 2411-2610']
     params = dict(recordId='LS-JP-2024-001',contractId='LS-JP-2024-001',revision=1,
-        company='リゴルジャパン株式会社',name='东京都丰岛区南大塚3-45-5办公室',lessor='成利企業有限公司',
+        company=COMPANIES['日本'][0],name='东京都丰岛区南大塚3-45-5办公室',lessor='成利企業有限公司',
         availableDate='2024-11-01',start='2024-11-01',end='2026-10-31',months=24,
         annualRate=.036,taxRate=.1,area=0,deposit=0,assetAdjustment=0,displayMode='auto',
         currency='JPY',calculationPrecision=0,

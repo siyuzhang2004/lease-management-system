@@ -46,8 +46,19 @@ function buildDisclosure(records,company,month){
    if(row.end<opening)values.depOpening+=dep;else values.depCharge+=dep;
   }
   values.depIncrease=values.depCharge;values.depClosing=values.depOpening+values.depCharge;
+  // Derecognize at the contractual end date after the final depreciation charge.
+  // Historical periods are derived independently; prior-year disposals do not recur.
+  const disposed=!!p.end&&p.end<=cutoff;
+  if(disposed){
+   if(Math.abs(values.depClosing-cost)>1)throw new Error('合同 '+record.id+' 到期折旧尚未结清，请先检查计算表。');
+   if(p.end<opening){Object.keys(values).forEach(key=>values[key]=0);}
+   else{
+    values.disposal=values.costDecrease=cost;values.costClosing=0;
+    values.depDisposal=values.depDecrease=values.depClosing;values.depClosing=0;
+   }
+  }
   values.netOpening=values.costOpening-values.depOpening;values.netClosing=values.costClosing-values.depClosing;
-  sources.push({id:record.id,name:p.name,revision:p.revision,values:Object.fromEntries(Object.entries(values).map(([key,n])=>[key,n/100])),params:JSON.parse(JSON.stringify(p)),result:JSON.parse(JSON.stringify(record.result))});
+  sources.push({id:record.id,name:p.name,revision:p.revision,disposalDate:disposed?p.end:null,values:Object.fromEntries(Object.entries(values).map(([key,n])=>[key,n/100])),params:JSON.parse(JSON.stringify(p)),result:JSON.parse(JSON.stringify(record.result))});
  }
  const values=Object.fromEntries(disclosureRows.filter(r=>r.length===3).map(([key])=>[key,sources.reduce((n,s)=>n+disclosureMinor(s.values[key]),0)/100]));
  return {company,month,opening,values,sources,currencyCode,currency:disclosureCurrencyNames[currencyCode]||currencyCode,basis:'单体',generatedAt:new Date().toISOString()};
@@ -91,4 +102,27 @@ function compareDisclosureReference(disclosure,reference,tolerance=1){
  const differences=disclosureRows.filter(row=>row.length===3&&reference[String(row[2])]!==undefined).map(([key,label,cell])=>({key,label,cell,actual:disclosure.values[key],reference:reference[String(cell)],difference:(disclosureMinor(disclosure.values[key])-disclosureMinor(reference[String(cell)]))/100})).filter(row=>row.difference!==0);
  const material=differences.filter(row=>Math.abs(row.difference)>tolerance);
  return {state:material.length?'review':'matched',label:material.length?'存在需复核差异':differences.length?'核对通过 · 分位尾差已忽略':'核对通过',differences,material};
+}
+// Arithmetic relationships use the displayed version and currency, including frozen reports.
+function disclosureFormula(data,key){
+ const definitions={
+  costIncrease:[['newLease',1,'新增租赁'],['acquisition',1,'企业并购']],
+  costDecrease:[['disposal',1,'处置']],
+  depIncrease:[['depCharge',1,'本期计提']],
+  depDecrease:[['depDisposal',1,'处置']],
+  impIncrease:[['impCharge',1,'本期计提']],
+  impDecrease:[['impDisposal',1,'处置']],
+ };
+ for(const prefix of ['cost','dep','imp']){
+  definitions[prefix+'Closing']=[[prefix+'Opening',1,'期初余额'],[prefix+'Increase',1,'本期增加金额'],[prefix+'Decrease',-1,'本期减少金额']];
+  if(data.translated)definitions[prefix+'Closing'].push([prefix+'Fx',1,'外币报表折算差额']);
+  definitions[prefix+'Fx']=[[prefix+'Closing',1,'期末余额'],[prefix+'Opening',-1,'期初余额'],[prefix+'Increase',-1,'本期增加金额'],[prefix+'Decrease',1,'本期减少金额']];
+ }
+ for(const suffix of ['Opening','Closing']){
+  const period=suffix==='Opening'?'期初':'期末';
+  definitions['net'+suffix]=[['cost'+suffix,1,period+'原值'],['dep'+suffix,-1,period+'累计折旧'],['imp'+suffix,-1,period+'减值准备']];
+ }
+ if(!definitions[key]||(!data.translated&&key.endsWith('Fx')))return null;
+ const terms=definitions[key].map(([field,sign,label])=>({key:field,sign,label,value:data.values[field]||0}));
+ return {terms,result:data.values[key]||0};
 }
