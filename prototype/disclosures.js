@@ -26,6 +26,8 @@ async function initDisclosures(){
  $('#disclosureTranslate').onclick=()=>{disclosureCurrencyView=disclosureCurrencyView==='original'?'CNY':'original';renderDisclosures();};
  $('#disclosureBody').onclick=e=>{const amount=e.target.closest('[data-disclosure-key]');if(amount)openDisclosureSources(amount.dataset.disclosureKey);};
  try{disclosureReferences=await(await calcApi('/api/disclosure-reference')).json();}catch{disclosureReferences={};}
+ await initGroupDisclosures();
+ await initLiabilityDisclosures();
 }
 function refreshDisclosureCompanies(){
  const allSelected=disclosureGalleryCompanies.length===disclosureCompanies.length;
@@ -35,6 +37,7 @@ function refreshDisclosureCompanies(){
 }
 function showDisclosureDetail(company=disclosureSelection.company,keepVersion=false){
  refreshDisclosureCompanies();
+ if($('#returnToGroupDisclosure'))$('#returnToGroupDisclosure').hidden=!groupDisclosureTrace;
  if(!disclosureCompanies.includes(company))return showDisclosures();
  if(!$('#disclosureGalleryView').hidden)disclosureGalleryScroll=window.scrollY;
  if(!keepVersion)disclosureCurrencyView='original';
@@ -66,7 +69,7 @@ function renderDisclosures(){
   const check=compareDisclosureReference(data,data.translated?null:disclosureReferences[data.company]?.[data.month]);
   const saved=frozen?`已保存 V${frozen.version} · 固定历史数据`:(data.historical?'历史附注':'当前计算表 · 随合同参数更新');
   $('#disclosureStatus').className='disclosure-status '+(check.state==='review'?'review':'');
-  $('#disclosureStatus').innerHTML=`<span><b>${esc(saved)}</b><small>${data.historical?'历史数据':data.sources.length+' 份合同'} · ${esc(check.label)}</small></span><span>仅本公司单体</span>`;
+  $('#disclosureStatus').innerHTML=`<span><b>${esc(saved)}</b><small>${disclosureSourceLabel(data)} · ${esc(check.label)}</small></span><span>仅本公司单体</span>`;
   if(translationError)$('#disclosureStatus').insertAdjacentHTML('beforeend',`<small>${esc(translationError)}</small>`);
   $('#disclosureMetrics').innerHTML=[['期初账面价值',data.values.netOpening],['本期计提折旧',data.values.depCharge],['期末账面价值',data.values.netClosing]].map(([label,value])=>metric(label,disclosureMoney(value),data.currency,label==='本期计提折旧'?data.month.slice(0,4)+'年年初累计':'本公司 · 房屋及建筑物','')).join('');
   $('#disclosureTitle').textContent=data.company;$('#disclosurePeriod').textContent=`${data.opening} 至 ${data.month}月末 · 年初累计`;
@@ -102,6 +105,11 @@ function disclosureFormulaMarkup(data,key){
 }
 function disclosureTranslationBasis(data,source,key){
  if(!data.translated||key.startsWith('net'))return '';
+ if(source.kind==='translation-opening'){
+  if(key.endsWith('Opening'))return `<div class="disclosure-source-equation"><small>上年末已报人民币余额 − 原币按期初汇率折算余额</small><p>${money(source.carryReported[key])} − ${money(source.carryBaseline[key])} = <b>${money(source.values[key])}</b> 人民币元</p></div>`;
+  if(key.endsWith('Fx'))return `<div class="disclosure-source-equation"><small>期初承接差额的对应折算影响</small><p>0.00 − (${money(source.values[key.replace('Fx','Opening')])}) = <b>${money(source.values[key])}</b> 人民币元</p></div>`;
+  return '<small>仅影响人民币期初余额及对应折算差额。</small>';
+ }
  const prefix=key.replace(/(Opening|Closing|Increase|Decrease|Fx)$/,'');
  const closing=key.endsWith('Closing')||key.endsWith('Fx'),opening=key.endsWith('Opening');
  const sourceKey=key.endsWith('Fx')?prefix+'Closing':key;
@@ -114,7 +122,7 @@ function openDisclosureSources(key){
  const data=disclosureViewData;if(!data)return;
  const label=disclosureRows.find(row=>row[0]===key)[1],frozen=disclosureSelection.version!=='current';
  const fx=data.translated?`<div class="disclosure-fx-audit"><b>${esc(data.originalCurrency)} → CNY</b><p>期初汇率 ${data.rates.opening} · 平均汇率 ${data.rates.average} · 期末汇率 ${data.rates.closing}</p><small>${esc(data.rates.rule)}</small><details><summary>汇率来源</summary><p>${esc(data.rates.source||'汇率表')}：${esc(data.rates.openingSource.period)} ${esc(data.rates.openingSource.cell)}<br>${data.rates.monthly.map(r=>esc(r.period)+' '+esc(r.cell)+' = '+r.value).join('<br>')}</p></details></div>`:'';
- openDrawer(label+' · 金额来源',`<div class="detail-banner"><strong>${esc(data.company)}</strong><small>${esc(data.opening)} 至 ${esc(data.month)}月末</small></div><p class="disclosure-source-total">附注金额 <b>${disclosureMoney(data.values[key])} ${esc(data.currency)}</b></p>${disclosureFormulaMarkup(data,key)}${fx}<div class="disclosure-source-list">${data.sources.map((source,index)=>`<article><b>${esc(source.name)}</b><small>${esc(source.reference||source.id+' · 计算表 V'+source.revision)}${source.disposalDate?' · 到期处置日 '+esc(source.disposalDate):''}</small>${data.translated?`<small>原币：${key.endsWith('Fx')?'—':disclosureMoney(source.originalValues[key])} ${esc(data.originalCurrency)}${source.translatedOpening&&key.endsWith('Opening')?' · 人民币期初承接历史报表':''}</small>`:''}${disclosureTranslationBasis(data,source,key)}<div><strong>${disclosureMoney(source.values[key])} ${esc(data.currency)}</strong>${source.result?`<button class="ghost" data-disclosure-source="${index}">${frozen?'查看保存的计算表':'查看合同计算表'} →</button>`:'<small>历史附注来源</small>'}</div></article>`).join('')}</div>`);
+ openDrawer(label+' · 金额来源',`<div class="detail-banner"><strong>${esc(data.company)}</strong><small>${esc(data.opening)} 至 ${esc(data.month)}月末</small></div><p class="disclosure-source-total">附注金额 <b>${disclosureMoney(data.values[key])} ${esc(data.currency)}</b></p>${disclosureFormulaMarkup(data,key)}${fx}<div class="disclosure-source-list">${data.sources.map((source,index)=>`<article><b>${esc(source.name)}</b><small>${esc(source.reference||source.id+' · 计算表 V'+source.revision)}${source.disposalDate?' · 到期处置日 '+esc(source.disposalDate):''}</small>${source.historyNote?`<small>${esc(source.historyNote)}</small>`:''}${data.translated?`<small>原币：${key.endsWith('Fx')?'—':disclosureMoney(source.originalValues[key])} ${esc(data.originalCurrency)}${source.translatedOpening&&key.endsWith('Opening')?' · 人民币期初承接历史报表':''}</small>`:''}${disclosureTranslationBasis(data,source,key)}<div><strong>${disclosureMoney(source.values[key])} ${esc(data.currency)}</strong>${source.result?`<button class="ghost" data-disclosure-source="${index}">${frozen?'查看保存的计算表':'查看合同计算表'} →</button>`:'<small>历史附注来源</small>'}</div></article>`).join('')}</div>`);
  $('#drawerBody').querySelectorAll('[data-disclosure-source]').forEach(button=>button.onclick=async()=>{
   const source=data.sources[Number(button.dataset.disclosureSource)];
   if(frozen)return openSavedDisclosureCalculation(source,data.month);
@@ -155,13 +163,16 @@ function renderDisclosureGallery(){
  $('#disclosureGalleryEmpty').hidden=companies.length!==0;
  $('#disclosureGalleryGrid').innerHTML=visible.map(company=>{
   let data,error='';try{data=buildDisclosure(leaseRecords,company,disclosureSelection.month);if(!data.sources.length)error='本期暂无已确认租赁';}catch(e){error=e.message;}
-  const count=data?.sources.length||0;
-  return `<button type="button" class="disclosure-card" data-disclosure-company="${esc(company)}" aria-label="查看${esc(company)}附注"><div class="disclosure-card-heading"><h2>${esc(company)}</h2></div><div class="disclosure-preview-wrap">${error?`<div class="disclosure-paper disclosure-paper-empty"><b>使用权资产</b><span>${esc(company)}</span><small>${esc(error)}</small></div>`:disclosurePreview(data)}<span class="disclosure-card-open" aria-hidden="true">查看附注 →</span></div><div class="disclosure-card-info"><div class="disclosure-card-meta"><span>${esc(disclosureSelection.month)} · ${data?.historical?'历史数据':count+' 份合同'}</span><span>${error?'待生成':data?.historical?'历史附注':'当前计算表'}</span></div><div class="disclosure-card-balance"><span>期末账面价值</span><strong>${error?'—':disclosureMoney(data.values.netClosing)}<small>${esc(data?.currency||'')}</small></strong></div></div></button>`;
+  const sourceLabel=data?disclosureSourceLabel(data):'0 份合同';
+  return `<button type="button" class="disclosure-card" data-disclosure-company="${esc(company)}" aria-label="查看${esc(company)}附注"><div class="disclosure-card-heading"><h2>${esc(company)}</h2></div><div class="disclosure-preview-wrap">${error?`<div class="disclosure-paper disclosure-paper-empty"><b>使用权资产</b><span>${esc(company)}</span><small>${esc(error)}</small></div>`:disclosurePreview(data)}<span class="disclosure-card-open" aria-hidden="true">查看附注 →</span></div><div class="disclosure-card-info"><div class="disclosure-card-meta"><span>${esc(disclosureSelection.month)} · ${sourceLabel}</span><span>${error?'待生成':data?.historical?'历史附注':'当前计算表'}</span></div><div class="disclosure-card-balance"><span>期末账面价值</span><strong>${error?'—':disclosureMoney(data.values.netClosing)}<small>${esc(data?.currency||'')}</small></strong></div></div></button>`;
  }).join('');
  $('#disclosureGalleryPagination').hidden=pages===1;
  $('#disclosureGalleryPagination').innerHTML=`<button class="ghost" data-disclosure-page="${disclosureGalleryPage-1}" ${disclosureGalleryPage===1?'disabled':''}>上一页</button><span>${disclosureGalleryPage} / ${pages}</span><button class="ghost" data-disclosure-page="${disclosureGalleryPage+1}" ${disclosureGalleryPage===pages?'disabled':''}>下一页</button>`;
 }
 function routeDisclosures(){
+ if(location.hash==='#liabilities'){showLiabilities();return true;}
+ if(location.hash.startsWith('#liabilities/')){showLiabilities(decodeURIComponent(location.hash.slice('#liabilities/'.length)));return true;}
+ if(location.hash==='#disclosures/group'){showGroupDisclosures();return true;}
  if(location.hash==='#disclosures'){showDisclosures();return true;}
  if(location.hash.startsWith('#disclosures/')){try{showDisclosureDetail(decodeURIComponent(location.hash.slice('#disclosures/'.length)),true);}catch{showDisclosures();}return true;}
  return false;

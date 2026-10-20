@@ -1,0 +1,23 @@
+#liabilityView{padding-top:20px}
+#liabilityView.liability-detail{max-width:1180px}
+#liabilityView [hidden]{display:none!important}
+.liability-filters{gap:22px;padding:18px 22px}
+.liability-filters .disclosure-control-field{min-width:180px}
+#liabilityVersion{min-width:230px}
+#liabilitySave{margin-left:auto}
+#liabilityPeriod{display:block;margin-top:8px;font-size:13px;color:#4b5c68}
+#liabilityView .metrics{gap:14px;margin-bottom:18px}
+#liabilityView .metric{padding:16px 18px;min-height:0}
+#liabilityView .metric .number{font-size:23px;margin:10px 0}
+#liabilityView .metric .hint{display:none}
+#liabilityView .group-row-title{width:265px;min-width:265px}
+#liabilityView .group-table tbody .group-row-title{font-weight:400}
+#liabilityView .group-total .group-row-title{font-weight:600}
+#liabilityView .group-table:not(.is-expanded){min-width:760px}
+.liability-paper{aspect-ratio:1/1.12;font-size:2.45cqw;padding:3em 2.5em}
+.liability-mini-row{display:grid;grid-template-columns:57% 43%;padding:.8em .3em;border-bottom:1px solid #e4e8ed;line-height:1.5em;font-variant-numeric:tabular-nums}
+.liability-mini-row>span:last-child{text-align:right}
+.liability-paper .disclosure-mini-section{padding:.65em .3em;margin-top:.9em}
+.liability-paper .disclosure-paper-company{white-space:normal;line-height:1.5em}
+.liability-paper .disclosure-paper-footer{margin-top:1.7em}
+@media(max-width:850px){#liabilityView .metrics{grid-template-columns:1fr}.liability-filters{gap:16px}#liabilitySave{margin-left:0}}

@@ -31,7 +31,23 @@ class Handler(SimpleHTTPRequestHandler):
         if path == '/api/health': return self.respond(200, dict(ok=True))
         if path == '/api/disclosure-international':
             source=BASE.parent/'analysis'/'disclosures'/'international.json'
-            if not source.exists(): return self.respond(200, {})
+            data={}
+            if source.exists():
+                with open(source,'r',encoding='utf-8') as file:data=json.load(file)
+            history=source.with_name('fixed-history.json')
+            if history.exists():
+                with open(history,'r',encoding='utf-8') as file:data['fixedHistory']=json.load(file)
+            carry=source.with_name('opening-carry.json')
+            if carry.exists():
+                with open(carry,'r',encoding='utf-8') as file:data['openingCarry']=json.load(file)
+            return self.respond(200,data)
+        if path == '/api/disclosure-group-reference':
+            source=BASE.parent/'analysis/disclosures/group-reference.json'
+            if not source.exists(): return self.respond(200,{})
+            with open(source,'r',encoding='utf-8') as file:return self.respond(200,json.load(file))
+        if path == '/api/disclosure-liability-reference':
+            source=BASE.parent/'analysis/disclosures/liability-reference.json'
+            if not source.exists(): return self.respond(200,{})
             with open(source,'r',encoding='utf-8') as file:return self.respond(200,json.load(file))
         if path == '/api/default-contract':
             with open(BASE/'default-contract.json','r',encoding='utf-8') as source:

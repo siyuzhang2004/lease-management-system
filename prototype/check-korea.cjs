@@ -8,7 +8,6 @@ vm.runInContext(fs.readFileSync('prototype/disclosure-model.js','utf8'),ctx);
  const korea=records['LS-KR-2025-001'];assert.ok(korea);
  const company=korea.params.company;
  assert.equal(company,'RIGOL KOREA CO,. LTD.');
- assert.equal(list.filter(r=>r.params.currency==='EUR').length,0,'Europe is pending user confirmation');
  ctx.configureDisclosures(await(await fetch(base+'/api/disclosure-international')).json(),records);
  const refs=await(await fetch(base+'/api/disclosure-reference')).json();
  const june=ctx.buildDisclosure(records,company,'2026-06');

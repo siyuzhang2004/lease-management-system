@@ -20,6 +20,38 @@ const disclosureRows=[
  ['净值','四、账面价值'],['netClosing','1.期末账面价值',31],['netOpening','2.期初账面价值',32],
 ];
 function disclosureMinor(value){if(!Number.isFinite(value))throw new Error('计算表金额无效。');return Math.round(value*100);}
+// Fixed opening balances and reported disposals are separate from editable contracts.
+function fixedDisclosureSources(company,month){
+ return (disclosureInternational.fixedHistory||[]).filter(h=>h.company===company).flatMap(h=>{
+  if(month<h.firstMonth)return [];
+  let values;
+  if(month<h.openingMonth){
+   const snapshot=h.snapshots?.[month];
+   if(!snapshot)throw new Error('旧租赁尚无 '+month+' 的历史记录，请选择已提供的报告期间。');
+   values={...Object.fromEntries(disclosureRows.filter(r=>r.length===3).map(([key])=>[key,0])),...snapshot};
+  }else{
+   const start=month.slice(0,4)+'-01',empty=()=>Object.fromEntries(disclosureRows.filter(r=>r.length===3).map(([key])=>[key,0]));
+   const balances={cost:disclosureMinor(h.opening.cost),dep:disclosureMinor(h.opening.dep),imp:disclosureMinor(h.opening.imp||0)};
+   const events=h.movements||[],v=empty();
+   const apply=e=>{for(const prefix of ['cost','dep','imp'])balances[prefix]+=disclosureMinor(e[prefix+'Increase']||0)-disclosureMinor(e[prefix+'Decrease']||0);};
+   events.filter(e=>e.month<start).forEach(apply);
+   for(const prefix of ['cost','dep','imp'])v[prefix+'Opening']=balances[prefix];
+   for(const e of events.filter(e=>e.month>=start&&e.month<=month)){
+    for(const key of ['costIncrease','newLease','acquisition','costDecrease','disposal','depIncrease','depCharge','depDecrease','depDisposal','impIncrease','impCharge','impDecrease','impDisposal'])v[key]+=disclosureMinor(e[key]||0);
+    apply(e);
+   }
+   for(const prefix of ['cost','dep','imp'])v[prefix+'Closing']=balances[prefix];
+   v.netOpening=v.costOpening-v.depOpening-v.impOpening;v.netClosing=v.costClosing-v.depClosing-v.impClosing;
+   values=Object.fromEntries(Object.entries(v).map(([key,value])=>[key,value/100]));
+  }
+  if(!Object.values(values).some(v=>v!==0))return [];
+  return [{id:h.id,name:h.name,kind:'history',values:{...values},reference:h.reference,historyNote:h.note}];
+ });
+}
+function disclosureSourceLabel(data){
+ const contracts=data.sources.filter(s=>s.result).length,history=data.sources.filter(s=>s.kind==='history').length;
+ return [contracts?contracts+' 份合同':'',history?history+' 项历史数据':''].filter(Boolean).join(' · ');
+}
 function buildDisclosure(records,company,month){
  if(!/^\d{4}-(0[1-9]|1[0-2])$/.test(month))throw new Error('请选择有效的报告期间。');
  const currencyCode=disclosureCurrency(company,records);
@@ -30,7 +62,7 @@ function buildDisclosure(records,company,month){
   const source={id:'history-'+company+'-'+month,name:company+'历史附注',kind:'history',values:{...history.values},translatedOpening:{...history.translatedOpening},reference:history.source+' / '+history.sheet};
   return {company,month,opening:month.slice(0,4)+'-01-01',values:{...history.values},sources:[source],currencyCode,currency:disclosureCurrencyNames[currencyCode]||currencyCode,basis:'单体',historical:true,generatedAt:new Date().toISOString()};
  }
- const opening=month.slice(0,4)+'-01-01',cutoff=month+'-31',sources=[];
+ const opening=month.slice(0,4)+'-01-01',cutoff=month+'-31',sources=fixedDisclosureSources(company,month);
  for(const record of Object.values(records)){
   if(record.params?.company!==company)continue;
   if(!record.result||record.params.revision!==record.result.params.revision||record.result.params.recordId!==record.id)throw new Error('本公司有尚未生成最新计算表的合同，请先完善合同参数。');
@@ -94,6 +126,21 @@ function translateDisclosure(original,rates=null){
   return v;
  }
  const sources=original.sources.map(s=>({...s,originalValues:{...s.values},values:translateValues(s.values,s.translatedOpening)}));
+ const carry=disclosureInternational.openingCarry?.[original.month.slice(0,4)]?.[original.company];
+ if(carry&&!original.historical&&sources.length){
+  const zero=()=>Object.fromEntries(disclosureRows.filter(r=>r.length===3).map(([key])=>[key,0]));
+  const values=zero();
+  for(const prefix of ['cost','dep','imp']){
+   values[prefix+'Opening']=carry.adjustment[prefix+'Opening']||0;
+   values[prefix+'Fx']=-values[prefix+'Opening'];
+  }
+  values.netOpening=round(values.costOpening-values.depOpening-values.impOpening);
+  sources.push({id:'opening-carry-'+original.company,kind:'translation-opening',name:'人民币期初承接调整',
+   reference:carry.source,historyNote:'固定承接上年末已报人民币金额与原币按期初汇率折算金额的差额。',
+   values,originalValues:zero(),carryReported:{...carry.reported},
+   carryBaseline:Object.fromEntries(Object.entries(carry.reported).map(([key,value])=>[key,round(value-(carry.adjustment[key]||0))])),
+   translatedOpening:{costOpening:values.costOpening,depOpening:values.depOpening,impOpening:values.impOpening}});
+ }
  const values=Object.fromEntries(disclosureRows.filter(r=>r.length===3).map(([key])=>[key,round(sources.reduce((sum,s)=>sum+s.values[key],0))]));
  return {...original,values,sources,currency:'人民币元',currencyCode:'CNY',originalCurrency:original.currencyCode,translated:true,rates:JSON.parse(JSON.stringify(rates))};
 }
