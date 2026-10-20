@@ -99,7 +99,10 @@ def validate(p):
     if not isinstance(n, int) or not 1 <= n <= 600: errors.append('计算期数须为1至600的整数月。')
     elif not errors:
         expected_end=shift_month(p['start'], n)-timedelta(days=1)
-        if end != expected_end: errors.append(f'租赁结束日与阶段月数不一致；按当前起算日及{n}期，应为{expected_end.isoformat()}。')
+        if p.get('periodBasis') == 'calendar-month':
+            if (end.year-start.year)*12+end.month-start.month+1 != n:
+                errors.append('按自然月核算时，阶段月数须覆盖开始日至结束日所在的全部月份。')
+        elif end != expected_end: errors.append(f'租赁结束日与阶段月数不一致；按当前起算日及{n}期，应为{expected_end.isoformat()}。')
     try:
         if p.get('freeEnd') and not p.get('recognizeDuringFreePeriod') and date.fromisoformat(p['freeEnd']) >= date.fromisoformat(p['start']):
             errors.append('公司简便口径下，租赁开始日须晚于免租期结束日。')
@@ -146,7 +149,9 @@ def expand_rent_phases(p):
         if not isinstance(gross,(int,float)) or not math.isfinite(gross) or gross<0:raise ValueError(f'第{index+1}阶段请填写有效的租金总额。')
         if not isinstance(frequency,int) or not 0<=frequency<=600:raise ValueError(f'第{index+1}阶段付款频率不正确。')
         if timing not in ('advance','arrears','custom'):raise ValueError(f'第{index+1}阶段请选择期初付或期末付。')
-        expected_end=(shift_month(p['start'],offset+count)-timedelta(days=1)).isoformat()
+        boundary=shift_month(p['start'],offset+count)
+        if p.get('periodBasis') == 'calendar-month':boundary=boundary.replace(day=1)
+        expected_end=min((boundary-timedelta(days=1)).isoformat(),p['end'])
         if phase.get('endDate') and phase['endDate']!=expected_end:raise ValueError(f'第{index+1}阶段结束日须与整月月数一致；当前应为{expected_end}。')
         frequency=frequency or count
         if timing=='custom' and frequency<count:raise ValueError('原约定期次只适用于该阶段一次支付；分次付款请选择期初付或期末付。')
@@ -173,7 +178,9 @@ def calculate(params):
     rounding = p.get('roundingPolicy', 'truncate-payments')
     if rounding not in ('truncate-payments', 'round-total-pv'):
         raise ValueError('请选择有效的金额舍入口径。')
-    amount_round = cents if rounding == 'round-total-pv' else truncate_amount
+    def round_amount(value):
+        return float(Decimal(str(value)).quantize(Decimal('1') if precision == 0 else Decimal('.01'), rounding=ROUND_HALF_UP))
+    amount_round = round_amount if rounding == 'round-total-pv' else truncate_amount
     p.setdefault('recordId','LEASE-'+hashlib.sha256((str(p.get('company'))+'|'+str(p.get('name'))+'|'+str(p.get('start'))).encode()).hexdigest()[:12])
     p.setdefault('revision',1)
     if not isinstance(p['recordId'],str) or not 1<=len(p['recordId'])<=80 or not isinstance(p['revision'],int) or isinstance(p['revision'],bool) or p['revision']<1:
@@ -208,7 +215,7 @@ def calculate(params):
     pv = [0.] + [amount_round(payments[i] / (1+rate)**i) for i in range(1, n+1)]
     initial_liability = cents(sum(Decimal(str(v)) for v in pv))
     if rounding == 'round-total-pv':
-        initial_liability = cents(sum(Decimal(str(payments[i])) / (1+Decimal(str(annual))/12)**i for i in range(1,n+1)))
+        initial_liability = round_amount(sum(Decimal(str(payments[i])) / (1+Decimal(str(annual))/12)**i for i in range(1,n+1)))
     initial_asset = cents(Decimal(str(initial_liability)) + Decimal(str(payments[0])) + Decimal(str(p.get('assetAdjustment', 0))))
     if initial_asset < 0: raise ValueError('调整后的使用权资产成本不能为负。')
     total_fixed = cents(sum(Decimal(str(s['net'])) for s in stages))
