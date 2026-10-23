@@ -11,8 +11,8 @@ function contextHeader(record,page){const i=contractInfo(record);return `<div cl
 function bindContractContext(root){root.querySelectorAll('[data-disclosure-return]').forEach(b=>b.onclick=()=>showDisclosureDetail(disclosureSelection.company,true));root.querySelectorAll('[data-contract-list]').forEach(b=>b.onclick=showContractList);root.querySelectorAll('[data-contract-route]').forEach(b=>b.onclick=()=>showContractPage(activeLeaseId,b.dataset.contractRoute));}
 function showContractList(){
  hideLeaseViews();leaseRoute='contracts';navigateContractUrl('#contracts');$('#contractListView').hidden=false;document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('selected',b.dataset.page==='contracts'));
- const rows=Object.values(leaseRecords);$('#contractListBody').innerHTML=rows.map(record=>{const i=contractInfo(record),p=record.params,ready=p&&record.result?.params.revision===p.revision;return `<tr><td class="contract-company"><strong>${esc(i.company)}</strong></td><td><strong>${esc(i.name)}</strong><small>${esc(record.id)}</small></td><td>${esc(i.start)}<small>至 ${esc(i.end)}</small></td><td>${p?'V'+p.revision:'待完善'}<small>${p?(p.calendarTerms?'自然季度预付':p.paymentSchedule?p.paymentSchedule.rents.length+' 个租金所属月份':(p.rentPhases||p.stages).length+' 个租金阶段'):'填写合同财务参数'}</small></td><td>${ready?'<span class="badge green">已自动生成</span>':p?'<span class="badge yellow">待更新</span>':'待生成'}<small>${record.result?'计算表 V'+record.result.params.revision:'根据本合同参数生成'}</small></td><td><button class="link" data-open-contract="${esc(record.id)}" data-destination="overview">合同概览</button><button class="link" data-open-contract="${esc(record.id)}" data-destination="parameters">参数</button><button class="link" data-open-contract="${esc(record.id)}" data-destination="calculation">计算表</button><button class="link" data-delete-contract="${esc(record.id)}">删除</button></td></tr>`;}).join('');
- if(!rows.length)$('#contractListBody').innerHTML='<tr><td colspan=6 class=contract-empty>暂无合同，请新增合同后填写计算参数。</td></tr>';$('#contractListBody').querySelectorAll('[data-delete-contract]').forEach(b=>b.onclick=()=>deleteLeaseContract(b.dataset.deleteContract));$('#contractListCount').textContent=rows.length+' 份合同';$('#contractListBody').querySelectorAll('[data-open-contract]').forEach(b=>b.onclick=()=>showContractPage(b.dataset.openContract,b.dataset.destination));window.scrollTo(0,contractListScroll);
+ 14→ const rows=Object.values(leaseRecords);$('#contractListBody').innerHTML=rows.map(record=>{const i=contractInfo(record),p=record.params,ready=p&&record.result?.params.revision===p.revision;return `<tr><td class="contract-company"><strong>${esc(i.company)}</strong></td><td><strong>${esc(i.name)}</strong><small>${esc(record.id)}</small></td><td>${esc(i.start)}<small>至 ${esc(i.end)}</small></td><td>${p?'V'+p.revision:'待完善'}<small>${p?(p.calendarTerms?'自然季度预付':p.paymentSchedule?p.paymentSchedule.rents.length+' 个租金所属月份':(p.rentPhases||p.stages).length+' 个租金阶段'):'填写合同财务参数'}</small></td><td>${ready?'<span class="badge green">已自动生成</span>':p?'<span class="badge yellow">待更新</span>':'待生成'}<small>${record.result?'计算表 V'+record.result.params.revision:'根据本合同参数生成'}</small></td><td><button class="link" data-open-contract="${esc(record.id)}" data-destination="overview">合同概览</button><button class="link" data-open-contract="${esc(record.id)}" data-destination="parameters">参数</button><button class="link" data-open-contract="${esc(record.id)}" data-destination="calculation">计算表</button><button class="link" data-copy-contract="${esc(record.id)}">复制</button><button class="link" data-delete-contract="${esc(record.id)}">删除</button></td></tr>`;}).join('');
+ 15→ if(!rows.length)$('#contractListBody').innerHTML='<tr><td colspan=6 class=contract-empty>暂无合同，请新增合同后填写计算参数。</td></tr>';$('#contractListBody').querySelectorAll('[data-delete-contract]').forEach(b=>b.onclick=()=>deleteLeaseContract(b.dataset.deleteContract));$('#contractListBody').querySelectorAll('[data-copy-contract]').forEach(b=>b.onclick=()=>copyLeaseContract(b.dataset.copyContract));$('#contractListCount').textContent=rows.length+' 份合同';$('#contractListBody').querySelectorAll('[data-open-contract]').forEach(b=>b.onclick=()=>showContractPage(b.dataset.openContract,b.dataset.destination));window.scrollTo(0,contractListScroll);
 }
 async function showContractPage(id,page='overview'){
  const record=leaseRecords[id];if(!record)return showContractList();
@@ -79,12 +79,21 @@ saveLeaseDraft=function(){const errors=validateLeaseDraft(false);showLeaseErrors
 closeLeaseEditor=function(){if($('#leaseEditor'))$('#leaseEditor').hidden=true;};
 const originalRequestCloseLease=requestCloseLease;
 requestCloseLease=function(afterClose){originalRequestCloseLease(()=>{if(afterClose)afterClose();else activeLeaseId?showContractPage(activeLeaseId,'overview'):showContractList();});};
-
 function createManualLease(){
- const id='LS-'+new Date().getFullYear()+'-'+crypto.randomUUID().slice(0,8).toUpperCase();
- leaseRecords[id]={id,parametersLocked:false,params:{recordId:id,contractId:id,revision:1,company:'',name:'',lessor:'',availableDate:'',freeStart:'',freeEnd:'',start:'',end:'',months:0,annualRate:'',taxRate:'',area:0,deposit:0,assetAdjustment:0,displayMode:'auto',policy:'按合同约定及公司核算口径计量。',stages:[],rentPhases:[{months:'',gross:'',frequency:0,timing:'advance',monthlyNet:0,monthlyTail:0}]},result:null};persistContracts();calcParams=null;showContractPage(id,'parameters');
-}
-function deleteLeaseContract(id){
+  const id='LS-'+new Date().getFullYear()+'-'+crypto.randomUUID().slice(0,8).toUpperCase();
+  leaseRecords[id]={id,parametersLocked:false,params:{recordId:id,contractId:id,revision:1,company:'',name:'',lessor:'',availableDate:'',freeStart:'',freeEnd:'',start:'',end:'',months:0,annualRate:'',taxRate:'',area:0,deposit:0,assetAdjustment:0,displayMode:'auto',policy:'按合同约定及公司核算口径计量。',stages:[],rentPhases:[{months:'',gross:'',frequency:0,timing:'advance',monthlyNet:0,monthlyTail:0}]},result:null};persistContracts();calcParams=null;showContractPage(id,'parameters');
+  }
++function copyLeaseContract(id){
++  const source=leaseRecords[id];
++  if(!source)return toast('来源合同不存在');
++  const nid='LS-'+new Date().getFullYear()+'-'+crypto.randomUUID().slice(0,8).toUpperCase();
++  // Deep clone params but keep a new recordId/contractId and reset revision
++  const params=clone(source.params||source.financialParameters||{});
++  params.recordId=nid;params.contractId=nid;params.revision=(params.revision||0)+1;params.name=(params.name||'复制合同')+' (复制)';
++  leaseRecords[nid]={id:nid,parametersLocked:false,params,financialParameters:clone(source.financialParameters||null),result:null};
++  persistContracts();toast('已复制合同 '+id+' → '+nid);
++  showContractPage(nid,'parameters');
++}function deleteLeaseContract(id){
  const record=leaseRecords[id];if(!record)return;
  openDrawer('删除合同',`<p class="helper">删除合同 ${esc(id)} 及其参数、计算表。删除后可在“已删除合同”中恢复。</p>`,'删除合同',()=>{const deleted=JSON.parse(localStorage.getItem('leaseDeletedContracts.v1')||'{}');deleted[id]=record;localStorage.setItem('leaseDeletedContracts.v1',JSON.stringify(deleted));delete leaseRecords[id];clearTimeout(calcAutoTimer);calcPendingRefresh=false;calcParams=null;calcResult=null;activeLeaseId=null;persistContracts();showContractList();toast('合同已删除。');},'合同管理');
 }
